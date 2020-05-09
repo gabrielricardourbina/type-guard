@@ -1,0 +1,37 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"rootDir": "./",
+		"outDir": "./dist",
+		"incremental": false,
+		"declarationDir":"./dist",
+		"declaration": true,
+		"strictNullChecks": true,
+		"moduleResolution": "node",
+		"strict": true,
+		"esModuleInterop": true,
+		"lib": [
+			"es2015",
+			"es2016.array.include",
+			"es2017.object",
+			"dom",
+			"dom.iterable",
+		],
+		"module": "ESNext",
+		"removeComments": true,
+		"alwaysStrict": true,
+		"allowUnreachableCode": false,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": false,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
+		"importHelpers": true
+	},
+	"include": ["src/**/*.ts", "test/**/*.ts"],
+	"ts-node": {
+		"files": ["src/globals.d.ts"]
+	},
+}

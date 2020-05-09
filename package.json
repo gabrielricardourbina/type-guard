@@ -1,0 +1,47 @@
+{
+	"name": "@gabrielurbina/type-guard",
+	"version": "0.0.0",
+	"description": "Type safety for your IO",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "tsc --project tsconfig.build.json",
+		"prerelease": "node prerelease.js",
+		"release": "npm publish dist",
+		"lint": "eslint src/**",
+		"test": "mocha --exit",
+		"test:cover": "nyc mocha --exit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gabrielurbina/type-guard.git"
+	},
+	"keywords": [
+		"typescript",
+		"functional"
+	],
+	"author": "Gabriel R. Urbina R.",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/gabrielurbina/type-guard/issues"
+	},
+	"homepage": "https://github.com/gabrielurbina/type-guard#readme",
+	"devDependencies": {
+		"@types/chai": "^4.2.11",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^14.0.1",
+		"@typescript-eslint/eslint-plugin": "^2.31.0",
+		"@typescript-eslint/parser": "^2.31.0",
+		"chai": "^4.2.0",
+		"eslint": "^7.0.0",
+		"esm": "^3.2.25",
+		"mocha": "^7.1.2",
+		"nyc": "^15.0.1",
+		"ts-node": "^8.10.1",
+		"tslib": "^1.11.2",
+		"typescript": "^3.8.3"
+	}
+}
