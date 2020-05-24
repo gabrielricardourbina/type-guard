@@ -47,3 +47,27 @@ function ArrayOf<T>(type: Guard<T>): Guard<Array<T>>;
 function TupleOf<T extends [any, ...any[]]>(guards: { [K in keyof T]: Guard<T[K]>; }): Guard<T>;
 function InstanceOf<T>(constructor: new (...args: any[]) => T): Guard<T>;
 ```
+## Examples
+### API resources
+When getting data from your students API type-check it before letting pass into the store:
+ ```typescript
+import { ArrayOf, ObjectOf, isString, isNumber, isBoolean } from "@gabrielurbina/type-guard";
+
+type Student = { firstName: string; lastName: string; age: number; active: boolean };
+
+const isStudent = ObjectOf({
+	firstName: isString,
+	lastName: isString,
+	age: isNumber,
+	active: isBoolean
+});
+
+const isStudentList = ArrayOf(isStudent);
+
+export const fetchStudents = async (id: string): Promise<Student[]> => {
+	// Remember to treat external data as unknown
+	const response: unknown = await(await fetch(`api/students?class=${id}`)).json();
+	if(!isStudentList(response)) throw Error("Invalid API response");
+	return response
+}
+```
