@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 
 (async() => {
-	const configOverride = { main: 'index.js', types: 'index.d.ts', devDependencies: undefined, scripts: undefined };
+	const configOverride = { main: 'index.js', types: 'index.d.ts', scripts: undefined };
 	const packageString = await fs.readFile('package.json', 'utf8');
 	const packageConfig = JSON.parse(packageString);
 	const releaseConfig = Object.assign(packageConfig, configOverride);
