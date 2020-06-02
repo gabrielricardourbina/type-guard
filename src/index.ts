@@ -11,3 +11,4 @@ export { default as RecordOf } from "./record-of";
 export { default as ArrayOf } from "./array-of";
 export { default as TupleOf } from "./tuple-of";
 export { default as OneOf } from "./one-of";
+export { default as ValueOf } from "./value-of";
