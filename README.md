@@ -97,28 +97,41 @@ export const fetchStudents = async (id: string): Promise<Student[]> => {
 }
 ```
 ### Local storage
-When getting data from your students API type-check it before letting pass into your application:
+When getting your user's stored preferences from `localStorage` type-check it before using it or use some default preferences if the type is invalid or there are no stored preferences:
  ```typescript
-import { ArrayOf, ObjectOf, isString, isNumber, isBoolean } from "@gabrielurbina/type-guard";
+import { ObjectOf, ValueOf, isNumber, isBoolean } from "@gabrielurbina/type-guard";
+
+
+type Theme = "dark" | "light";
+type Currency = "USD" | "EUR" | "GBP";
 
 interface UserPreferences {
-	theme: "dark" | "light";
-	currency: "USD" | "EUR" | "GBP";
+	theme: Theme;
+	currency: Currency;
 	timeZoneOffset: number;
 	finishedWalkthrough: boolean;
 };
-const isUserPreferences = ObjectOf({
-	firstName: isString,
-	lastName: isString,
-	age: isNumber,
-	active: isBoolean
-});
-const isStudentList = ArrayOf(isStudent);
 
-export const fetchStudents = async (id: string): Promise<Student[]> => {
-	// Remember to treat external data as unknown
-	const response: unknown = await(await fetch(`api/students?class=${id}`)).json();
-	if(!isStudentList(response)) throw Error("Invalid API response");
-	return response
+const isUserPreferences = ObjectOf({
+	theme: ValueOf<Theme>(["dark" , "light"]),
+	currency: ValueOf<Currency>(["USD" , "EUR" , "GBP"]),
+	timeZoneOffset: isNumber,
+	finishedWalkthrough: isBoolean,
+});
+
+const defaultUserPreferences: UserPreferences = {
+	theme: "light",
+	currency: "USD",
+	timeZoneOffset: 0,
+	finishedWalkthrough: false,
+}
+
+export const retrieveUserPreferences = (): UserPreferences => {
+	const storedPreferences = localStorage.getItem("user-preferences");
+	if (storedPreferences === null) return defaultUserPreferences;
+	// Treat external data as unknown
+	const preferences: unknown = JSON.parse(storedPreferences);
+	if(!isUserPreferences(preferences)) return defaultUserPreferences;
+	return preferences;
 }
 ```
