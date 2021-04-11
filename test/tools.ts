@@ -1,14 +1,11 @@
-import { expect } from 'chai';
+import { expect } from "chai";
 
-declare type Guard<T> = (v: unknown) => v is T;
-
-export const TypeChecker = <T>(guard: Guard<T>, name: string) => ({
-	passes: (value: unknown) => it(`is ${name}: ${JSON.stringify(value)}`, (): T => {
-		if (!guard(value)) expect.fail();
-		return value;
-	}),
-	fails: (value: unknown) => it(`is not ${name}: ${JSON.stringify(value)}`, () => {
-		if (guard(value)) expect.fail();
-	})
-
-});
+export const testEach = <T>(
+  guard: (v: unknown) => v is T,
+  type: string,
+  table: Array<[boolean, unknown]>
+) =>
+  table.forEach(([expected, value]) =>
+    it(`${JSON.stringify(value)} is ${expected ? "" : "not "}${type}`, () =>
+      expect(guard(value)).to.equal(expected))
+  );

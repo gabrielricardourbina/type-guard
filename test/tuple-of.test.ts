@@ -1,22 +1,23 @@
 import TupleOf from "../src/tuple-of";
 import isString from "../src/is-string";
 import isNumber from "../src/is-number";
-import { TypeChecker } from "./tools";
+import { expectType } from "tsd";
+import { testEach } from "./tools";
 
 describe('Person: [string, number] ', () => {
-	type Person = [string, number];
-	const { passes, fails } = TypeChecker<Person>(TupleOf([isString, isNumber]), "Person");
+	const isPersonTuple = TupleOf([isString, isNumber]);
+	expectType<(a: unknown) => a is [string, number]>(isPersonTuple);
 
-	passes(["Jane Doe", 24]);
-	passes(["Jane Doe", 23, true]);
-	fails({ brand: "Toyota", engine: 1.8 });
-	fails(["Jane Doe", "23"]);
-	fails([]);
-	fails(["10", true]);
-	fails([10, true]);
-	fails(null);
-	fails(10);
-	fails("10");
-	fails(true);
+	testEach(isPersonTuple,"[string, number]", [[true, ["Jane Doe", 24]],
+	[true, ["Jane Doe", 23, true]],
+	[false, { brand: "Toyota", engine: 1.8 }],
+	[false, ["Jane Doe", "23"]],
+	[false, []],
+	[false, ["10", true]],
+	[false, [10, true]],
+	[false, null],
+	[false, 10],
+	[false, "10"],
+	[false, true],])
 });
 

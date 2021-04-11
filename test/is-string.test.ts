@@ -1,17 +1,19 @@
 import isString from "../src/is-string";
-import { TypeChecker } from "./tools";
+import { expectType } from "tsd";
+import { testEach } from "./tools";
 
-describe('string', () => {
-	const { passes, fails } = TypeChecker<string>(isString, "string");
+describe("string", () => {
+  expectType<(a: unknown) => a is string>(isString);
 
-	passes("John Doe");
-	passes("");
-	passes("\u0000");
-	fails(new String(""));
-	fails({ name: "John Doe", age: 18 });
-	fails([10, true]);
-	fails(null);
-	fails(10);
-	fails(true);
+  testEach(isString, "string", [
+    [true, "John Doe"],
+    [true, ""],
+    [true, "\u0000"],
+    [false, new String("")],
+    [false, { name: "John Doe", age: 18 }],
+    [false, [10, true]],
+    [false, null],
+    [false, 10],
+    [false, true],
+  ]);
 });
-

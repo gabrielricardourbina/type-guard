@@ -1,18 +1,20 @@
 import OneOf from "../src/one-of";
 import isString from "../src/is-string";
 import isNumber from "../src/is-number";
-import { TypeChecker } from "./tools";
+import { expectType } from "tsd";
+import { testEach } from "./tools";
 
-describe('Grade: string | number', () => {
-	type Grade = string | number;
-	const { passes, fails } = TypeChecker<Grade>(OneOf([isString, isNumber]), "Grade");
+describe("Grade: string | number", () => {
+  const isGrade = OneOf([isString, isNumber]);
+  expectType<(a: unknown) => a is string | number>(isGrade);
 
-	passes(10);
-	passes("A+");
-	fails({ value: 10 });
-	fails([]);
-	fails([10, true]);
-	fails(null);
-	fails(true);
+  testEach(isGrade, "string | number", [
+    [true, 10],
+    [true, "A+"],
+    [false, { value: 10 }],
+    [false, []],
+    [false, [10, true]],
+    [false, null],
+    [false, true],
+  ]);
 });
-

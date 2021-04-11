@@ -1,20 +1,24 @@
 import isObject from "../src/is-object";
-import { TypeChecker } from "./tools";
+import { expectType } from "tsd";
+import { testEach } from "./tools";
 
-describe('object {}', () => {
-	const { passes, fails } = TypeChecker<{ [K in any]: any }>(isObject, "object {}");
+describe("object {}", () => {
+  expectType<(a: unknown) => a is { [k: string]: any; [x: number]: any }>(
+    isObject
+  );
 
-	passes({});
-	passes({ name: "Jon Snow"});
-	passes({ amount: 123 });
-	passes({ name: "John Doe", age: 18 });
-	fails(new String(""));
-	fails(new Number(""));
-	fails(Object.create(null));
-	fails([10, true]);
-	fails(null);
-	fails(10);
-	fails("10");
-	fails(true);
+  testEach(isObject, "object {}", [
+    [true, {}],
+    [true, { name: "Jon Snow" }],
+    [true, { amount: 123 }],
+    [true, { name: "John Doe", age: 18 }],
+    [false, new String("")],
+    [false, new Number("")],
+    [false, Object.create(null)],
+    [false, [10, true]],
+    [false, null],
+    [false, 10],
+    [false, "10"],
+    [false, true],
+  ]);
 });
-

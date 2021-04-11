@@ -31,7 +31,6 @@
 		"importHelpers": true
 	},
 	"include": ["src/**/*.ts", "test/**/*.ts"],
-	"ts-node": {
-		"files": ["src/globals.d.ts"]
-	},
+	"exclude": ["dist/**/*.ts"],
+
 }

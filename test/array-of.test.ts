@@ -1,20 +1,23 @@
 import ArrayOf from "../src/array-of";
 import isString from "../src/is-string";
-import { TypeChecker } from "./tools";
+import { expectType } from 'tsd';
+import { testEach } from "./tools";
 
 describe('Names: string[]', () => {
-	type Names = string[];
-	const { passes, fails } = TypeChecker<Names>(ArrayOf(isString), "Names");
+	const guard = ArrayOf(isString);
+	expectType<(a: unknown) => a is string[]>(guard);
 
-	passes(["Victor", "Elena", "Maria"]);
-	passes([]);
-	fails(["Victor", 12, "Maria"]);
-	fails({ brand: "Toyota", engine: 1.8 });
-	fails(["10", true]);
-	fails([10, true]);
-	fails(null);
-	fails(10);
-	fails("10");
-	fails(true);
+	testEach(guard, "string[]", [
+		[true, ["Victor", "Elena", "Maria"]],
+		[true, []],
+		[false, ["Victor", 12, "Maria"]],
+		[false, { brand: "Toyota", engine: 1.8 }],
+		[false, ["10", true]],
+		[false, [10, true]],
+		[false, null],
+		[false, 10],
+		[false, "10"],
+		[false, true],
+	])
 });
 

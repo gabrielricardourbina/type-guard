@@ -1,16 +1,18 @@
 import isArray from "../src/is-array";
-import { TypeChecker } from "./tools";
+import { expectType } from "tsd";
+import { testEach } from "./tools";
 
-describe('Array<any>', () => {
-	const { passes, fails } = TypeChecker<any[]>(isArray, "Array<any>");
+describe("Array of any: any[]", () => {
+  expectType<(a: unknown) => a is any[]>(isArray);
 
-	passes(["John Doe", "Oliver King", "Pedro Perez"]);
-	passes([12, "Oliver King", true]);
-	passes([]);
-	fails("John Doe");
-	fails({ name: "John Doe", age: 18 });
-	fails(null);
-	fails(10);
-	fails(true);
+  testEach(isArray, "any[]", [
+    [true, ["John Doe", "Oliver King", "Pedro Perez"]],
+    [true, [12, "Oliver King", true]],
+    [true, []],
+    [false, "John Doe"],
+    [false, { name: "John Doe", age: 18 }],
+    [false, null],
+    [false, 10],
+    [false, true],
+  ]);
 });
-
