@@ -3,6 +3,7 @@ export { default as isObject } from "./is-object";
 export { default as isNumber } from "./is-number";
 export { default as isString } from "./is-string";
 export { default as isBoolean } from "./is-boolean";
+export { default as isNull } from "./is-null";
 
 export { default as InstanceOf } from "./instance-of";
 export { default as ObjectOf } from "./object-of";
