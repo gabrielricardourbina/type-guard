@@ -3,7 +3,7 @@ import { expectType } from "tsd";
 import { testEach } from "./tools";
 
 describe("Array of any: any[]", () => {
-  expectType<(a: unknown) => a is any[]>(isArray);
+  expectType<(a: unknown) => a is any[] | readonly any[]>(isArray);
 
   testEach(isArray, "any[]", [
     [true, ["John Doe", "Oliver King", "Pedro Perez"]],
