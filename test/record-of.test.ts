@@ -1,11 +1,13 @@
-import RecordOf from "../src/record-of";
-import isNumber from "../src/is-number";
+import type { Guard } from "../src/types";
 import { expectType } from "tsd";
 import { testEach } from "./tools";
 
+import RecordOf from "../src/record-of";
+import isNumber from "../src/is-number";
+
 describe("Grades: { [name: string]: number }", () => {
-  const isGrades = RecordOf(isNumber);
-  expectType<(a: unknown) => a is { [name: string]: number }>(isGrades);
+  const isGrades = RecordOf([isNumber]);
+  expectType<Guard<{ [name: string]: number }>>(isGrades);
 
   testEach(isGrades, "{ [name: string]: number }", [
     [true, { "Jane Doe": 9, "Jon Snow": 10 }],

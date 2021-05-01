@@ -37,7 +37,7 @@ describe("Grade: string | number", () => {
 
 describe("Grades: string | number | Record<string, Grades>", () => {
   type Grades = string | number | { [k: string]: Grades };
-  const isGrades = OneOf<Grades>((g) => [isString, isNumber, RecordOf(g)]);
+  const isGrades = OneOf<Grades>((g) => [isString, isNumber, RecordOf([g])]);
   expectType<Guard<Grades>>(isGrades);
 
   testEach(isGrades, "string | number | Record<string, Grades>", [
