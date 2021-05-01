@@ -1,9 +1,11 @@
-import isBoolean from "../src/is-boolean";
+import type { Guard } from "../src/types";
 import { expectType } from "tsd";
 import { testEach } from "./tools";
 
+import isBoolean from "../src/is-boolean";
+
 describe("boolean", () => {
-  expectType<(a: unknown) => a is boolean>(isBoolean);
+  expectType<Guard<boolean>>(isBoolean);
 
   testEach(isBoolean, "boolean", [
     [true, true],

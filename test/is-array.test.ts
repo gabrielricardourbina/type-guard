@@ -1,9 +1,11 @@
-import isArray from "../src/is-array";
+import type { Guard } from "../src/types";
 import { expectType } from "tsd";
 import { testEach } from "./tools";
 
+import isArray from "../src/is-array";
+
 describe("Array of any: any[]", () => {
-  expectType<(a: unknown) => a is any[] | readonly any[]>(isArray);
+  expectType<Guard<any[]| readonly any[]>>(isArray);
 
   testEach(isArray, "any[]", [
     [true, ["John Doe", "Oliver King", "Pedro Perez"]],

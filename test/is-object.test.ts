@@ -1,11 +1,11 @@
-import isObject from "../src/is-object";
+import type { Guard } from "../src/types";
 import { expectType } from "tsd";
 import { testEach } from "./tools";
 
+import isObject from "../src/is-object";
+
 describe("object {}", () => {
-  expectType<(a: unknown) => a is { [k: string]: any; [x: number]: any }>(
-    isObject
-  );
+  expectType<Guard<{ [k: string]: any; [x: number]: any }>>(isObject);
 
   testEach(isObject, "object {}", [
     [true, {}],

@@ -1,10 +1,11 @@
+import type { Guard } from "../src/types";
 import { expectType } from "tsd";
 import { testEach } from "./tools";
 
 import isNull from "../src/is-null";
 
 describe("null", () => {
-  expectType<(a: unknown) => a is null>(isNull);
+  expectType<Guard<null>>(isNull);
 
   testEach(isNull, "null", [
     [true, null],

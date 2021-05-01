@@ -1,9 +1,11 @@
-import isNumber from "../src/is-number";
+import type { Guard } from "../src/types";
 import { expectType } from "tsd";
 import { testEach } from "./tools";
 
+import isNumber from "../src/is-number";
+
 describe("number", () => {
-  expectType<(a: unknown) => a is number>(isNumber);
+  expectType<Guard<number>>(isNumber);
 
   testEach(isNumber, "number", [
     [true, 12],

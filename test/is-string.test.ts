@@ -1,9 +1,11 @@
-import isString from "../src/is-string";
+import type { Guard } from "../src/types";
 import { expectType } from "tsd";
 import { testEach } from "./tools";
 
+import isString from "../src/is-string";
+
 describe("string", () => {
-  expectType<(a: unknown) => a is string>(isString);
+  expectType<Guard<string>>(isString);
 
   testEach(isString, "string", [
     [true, "John Doe"],
