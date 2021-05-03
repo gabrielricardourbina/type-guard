@@ -1,4 +1,4 @@
-const ValueOf = <T>(expectedValues: Array<T>) => {
+const ValueOf = <T>(expectedValues: readonly T[] | T[]) => {
 	return (value: unknown): value is T => {
 		return expectedValues.some(expected => value === expected);
 	};

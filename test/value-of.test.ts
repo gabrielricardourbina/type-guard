@@ -3,7 +3,7 @@ import ValueOf from "../src/value-of";
 import { testEach } from "./tools";
 
 describe('Currency: "USD" | "EUR" | "GBP" ', () => {
-  const isCurrency = ValueOf(["USD" as const , "EUR" as const, "GBP" as const]);
+  const isCurrency = ValueOf(["USD", "EUR", "GBP"] as const);
 
   expectType<(a: unknown) => a is "USD" | "EUR" | "GBP">(isCurrency);
 
