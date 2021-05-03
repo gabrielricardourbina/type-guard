@@ -55,11 +55,11 @@ describe("Person: { firstName: string; lastName: string; age: number, spouse: Pe
     spouse: Person | null;
   };
 
-  const isPerson = ObjectOf<Person>((guard) => ({
+  const isPerson = ObjectOf<Person>((self) => ({
     firstName: isString,
     lastName: isString,
     age: isNumber,
-    spouse: OneOf([guard, isNull]),
+    spouse: OneOf([self, isNull]),
   }));
 
   expectType<Guard<Person>>(isPerson);

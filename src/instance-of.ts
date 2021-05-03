@@ -2,17 +2,33 @@ import type { Guard } from "./types";
 
 type Constructor<T> = new (...args: any[]) => T;
 
-type TypeofConstructors<C extends Constructor<any>[]> = C extends Constructor<
+type TypeFromConstructors<C extends Constructor<any>[]> = C extends Constructor<
   infer P
 >[]
   ? P
-  : never;
+  : unknown;
+type ConstructorsFromType<T extends any> = Constructor<T>[];
 
-const InstanceOf = <T extends Object, C extends Constructor<T>[] = Constructor<T>[]>(
+/**
+ * @category Guard Factory
+ * @return a Guard that checks if a value is instance of one of the constructor passed
+ * @example
+ * ```typescript
+ *   const isDate = InstanceOf([Date]);
+ * ```
+ * @example
+ * ```typescript
+ *   const isBytes = InstanceOf([Buffer, Uint8Array]);
+ * ```
+ */
+const InstanceOf = <
+  T extends TypeFromConstructors<C>,
+  C extends Constructor<any>[] = ConstructorsFromType<T>
+>(
   constructors: C
-): Guard<TypeofConstructors<C>> => {
-  return (obj: unknown): obj is TypeofConstructors<C> => {
-    return constructors.some(constructor => obj instanceof constructor);
+): Guard<T> => {
+  return (value: unknown): value is T => {
+    return constructors.some((constructor) => value instanceof constructor);
   };
 };
 

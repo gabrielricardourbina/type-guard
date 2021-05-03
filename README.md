@@ -36,23 +36,23 @@ Wherever your application meets external data
 
 Performing all the data validation on this layer will allow allow the core application to trust the data is using, allowing you to remove redundant type-checks and unclutter your code.
 ## Type guards
-A type guard is a function that checks an ***unknown*** value and returns *true* if the value is of a given type:
+A type guard is a function that checks a value and returns *true* if the value is of a given type:
 ```typescript
-type Guard<T> = (v: unknown) => v is T;
+type Guard<T extends V, V = unknown> = (v: V) => v is T;
 ```
+For example this fuction checks that the unkown value is one valid `Grade`
 ```typescript
 type Grade = "A" | "B" | "C" | "D" | "F"; 
 const isGrade = (value: unknown): value is Grades =>  ["A","B","C","D","F"].includes(value)
 ```
-*Naming*: Type guards start with **is** and then the type they check 
-### Provided Type-Guards
-```typescript
-function isArray(value: unknown): value is Array<any>;
-function isObject(value: unknown): value is { [x: string]: any };
-function isNumber(value: unknown): value is number;
-function isString(value: unknown): value is string;
-function isBoolean(value: unknown): value is boolean;
-```
+*Naming*: Type guards start with **is** and then the type they check
+
+[**This library provides these Type-Guards**](modules.md#guard-functions)
+
+## Guard factories
+Guard factories are functions that return a type guard
+
+[**This library provides these Guard Factories**](modules.md#guard-factory-functions)
 
 ## High order guards
 High order guards are functions that receive type-guards and return another type-guard of a composite type:
@@ -63,15 +63,8 @@ const ArrayOf= <T>(type: Guard<T>) => {
 ```
 *Naming*: High order guards start with the base type end with **Of**
 
-### Provided high order guards 
-```typescript
-function ObjectOf<T extends { [K in keyof T]: any; }>(guards: { [K in keyof T]: Guard<T[K]>; }): Guard<T>;
-function OneOf<T>(guards: Array<T extends any ? Guard<T> : never>): Guard<T>;
-function RecordOf<T>(type: Guard<T>): Guard<{ [k: string]: T }>
-function ArrayOf<T>(type: Guard<T>): Guard<Array<T>>;
-function TupleOf<T extends [any, ...any[]]>(guards: { [K in keyof T]: Guard<T[K]>; }): Guard<T>;
-function InstanceOf<T>(constructor: new (...args: any[]) => T): Guard<T>;
-```
+[**This library provides these High order guards**](modules.md#high-order-guard-functions)
+
 ## Examples
 ### HTTP responses
 When getting data from your students API type-check it before letting pass into your application:
@@ -100,7 +93,6 @@ export const fetchStudents = async (id: string): Promise<Student[]> => {
 When getting your user's stored preferences from `localStorage` type-check it before using it or use some default preferences if the type is invalid or there are no stored preferences:
  ```typescript
 import { ObjectOf, ValueOf, isNumber, isBoolean } from "@gabrielurbina/type-guard";
-
 
 type Theme = "dark" | "light";
 type Currency = "USD" | "EUR" | "GBP";

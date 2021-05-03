@@ -10,7 +10,6 @@ import isNumber from "../src/is-number";
 import RecordOf from "../src/record-of";
 import isNull from "../src/is-null";
 
-
 it("OneOf: throws explicit error when trying to call the 'self' guard in recursive mode", () => {
   expect(() =>
     OneOf((self) => {
@@ -37,7 +36,11 @@ describe("Grade: string | number", () => {
 
 describe("Grades: string | number | Record<string, Grades>", () => {
   type Grades = string | number | { [k: string]: Grades };
-  const isGrades = OneOf<Grades>((g) => [isString, isNumber, RecordOf([g])]);
+  const isGrades = OneOf<Grades>((self) => [
+    isString,
+    isNumber,
+    RecordOf([self]),
+  ]);
   expectType<Guard<Grades>>(isGrades);
 
   testEach(isGrades, "string | number | Record<string, Grades>", [

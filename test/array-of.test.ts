@@ -56,7 +56,7 @@ describe("NamesOrId: (string| number)[]", () => {
 
 describe("FullNames: (string | FullNames)[]", () => {
   type FullNames = (string | FullNames)[];
-  const guard = ArrayOf<FullNames>((g) => [isString, g]);
+  const guard = ArrayOf<FullNames>((self) => [isString, self]);
   expectType<Guard<FullNames>>(guard);
 
   testEach(guard, "(string | FullNames)[]", [

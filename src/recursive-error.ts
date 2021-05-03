@@ -1,7 +1,8 @@
-type Wrapper = <Qe extends (...args: any[]) => any>(qe: Qe) => Qe;
-
+/**
+ * @internal
+ */
 export default class RecursiveError<T> extends ReferenceError {
-  static assert<T>(iif: (forbidCall: Wrapper) => T): T {
+  static assert<T>(iif: (forbidCall: <Qe extends (...args: any[]) => any>(qe: Qe) => Qe) => T): T {
     const proxyHandler: ProxyHandler<() => any> = {
       apply() {
         throw new RecursiveError();

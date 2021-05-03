@@ -40,10 +40,10 @@ describe("Person: [string, number] ", () => {
 
 describe("Person: [string, number, Person | null] ", () => {
   type Person = [string, number, Person | null];
-  const isPersonTuple = TupleOf<Person>((g) => [
+  const isPersonTuple = TupleOf<Person>((self) => [
     isString,
     isNumber,
-    OneOf([g, isNull]),
+    OneOf([self, isNull]),
   ]);
   expectType<Guard<Person>>(isPersonTuple);
 

@@ -2,20 +2,41 @@ import type { Guard } from "./types";
 import isArray from "./is-array";
 import RecursiveError from "./recursive-error";
 
-type TypeOfGuards<G extends Guard<any>[]> = G extends Guard<infer P>[]
+type TypeFromGuards<G extends Guard<any>[]> = G extends Guard<infer P>[]
   ? P[]
-  : never;
+  : unknown[];
 
+type GuardsFromType<T extends any[]> = Guard<
+  T extends (infer P)[] ? P : unknown
+>[];
+/**
+ * @category High Order Guard
+ * @return a `Guard` that checks if every element of an array is one of the guards passed
+ * @throws {RecursiveError} When calling the `self` guard in the callback
+ * @example
+ * ```typescript
+ *   const isStringArray = ArrayOf([isString]);
+ * ```
+ * @example
+ * ```typescript
+ *   const isStringOrNumberArray = ArrayOf([isString, isNumber]);
+ * ```
+ * @example
+ * ```typescript
+ *   type FullNames = (string | FullNames)[];
+ *   const isFullNames = ArrayOf<FullNames>((self) => [isString, self]);
+ * ```
+ */
 const ArrayOf = <
-  T extends any[],
-  G extends { [K in keyof T]: Guard<T[K]> } = { [K in keyof T]: Guard<T[K]> }
+  T extends TypeFromGuards<G>,
+  G extends Guard<any>[] = GuardsFromType<T>
 >(
-  guards: G | ((self: Guard<TypeOfGuards<G>>) => G)
-): Guard<TypeOfGuards<G>> => {
-  const isArrayOf = (arr: unknown): arr is TypeOfGuards<G> => {
+  guards: G | ((self: Guard<T>) => G)
+): Guard<T> => {
+  const isArrayOf = (value: unknown): value is T => {
     return (
-      isArray(arr) &&
-      arr.every((value) => generatedGuards.some((guard) => guard(value)))
+      isArray(value) &&
+      value.every((value) => generatedGuards.some((guard) => guard(value)))
     );
   };
 
