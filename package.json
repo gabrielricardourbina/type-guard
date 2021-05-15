@@ -10,7 +10,7 @@
 	"scripts": {
 		"build": "tsc --project tsconfig.build.json",
 		"docgen": "typedoc src/index.ts",
-		"postdocgen" : "mv -f docs/modules.md .",
+		"postdocgen": "mv -f docs/modules.md .",
 		"prerelease": "node prerelease.js",
 		"release": "npm publish dist",
 		"lint": "eslint src/**",
