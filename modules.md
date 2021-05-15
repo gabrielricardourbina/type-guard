@@ -1,4 +1,4 @@
-# @gabrielurbina/type-guard - v0.0.7
+# @gabrielurbina/type-guard - v0.0.8
 
 ## Table of contents
 
