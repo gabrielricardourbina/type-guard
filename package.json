@@ -1,6 +1,6 @@
 {
 	"name": "@gabrielurbina/type-guard",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "Type safety for your IO",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -8,11 +8,12 @@
 		"access": "public"
 	},
 	"scripts": {
+		"prebuild": "rm -rf dist",
 		"build": "tsc --project tsconfig.build.json",
 		"docgen": "typedoc src/index.ts",
 		"postdocgen": "mv -f docs/modules.md .",
 		"prerelease": "node prerelease.js",
-		"release": "npm publish dist",
+		"release": "cd dist && npm publish",
 		"lint": "eslint src/**",
 		"pretest": "tsd",
 		"test": "mocha --exit",
