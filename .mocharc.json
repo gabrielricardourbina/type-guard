@@ -2,12 +2,10 @@
 	"diff": true,
 	"extension": ["ts"],
 	"spec": "test/**/*.test.ts",
-	"require": ["esm", "ts-node/register"],
+	"require": "ts-node/register",
 	"package": "./package.json",
 	"reporter": "spec",
 	"slow": 75,
 	"timeout": 2000,
 	"ui": "bdd"
-	// "watch-files": ["test/**/*test.ts"],
-	// "watch-ignore": ["dist/"]
 }

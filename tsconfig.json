@@ -17,7 +17,7 @@
 			"dom",
 			"dom.iterable",
 		],
-		"module": "ESNext",
+		"module": "commonjs",
 		"removeComments": false,
 		"alwaysStrict": true,
 		"allowUnreachableCode": false,

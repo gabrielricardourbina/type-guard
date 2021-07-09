@@ -1,6 +1,6 @@
 {
 	"include": ["src/"],
-	"require": ["esm", "ts-node/register"],
+	"require": "ts-node/register",
 	"all": true,
 	"check-coverage": false,
 	"reporter": ["text"],
