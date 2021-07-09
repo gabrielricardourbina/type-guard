@@ -12,9 +12,11 @@
 
 - [isArray](modules.md#isarray)
 - [isBoolean](modules.md#isboolean)
+- [isDefined](modules.md#isdefined)
 - [isNull](modules.md#isnull)
 - [isNumber](modules.md#isnumber)
 - [isObject](modules.md#isobject)
+- [isPresent](modules.md#ispresent)
 - [isString](modules.md#isstring)
 
 ### Guard Factory Functions
@@ -143,6 +145,22 @@ Defined in: [is-boolean.ts:11](src/is-boolean.ts#L11)
 
 ___
 
+### isDefined
+
+• `Const` **isDefined**: [*Guard*](modules.md#guard)<{} \| ``null``\>
+
+**`returns`** `true` if the value is defined
+
+**`example`** 
+```typescript
+  const value: string | undefined = record.get("something");
+  if(isDefined(value)) return [value];
+```
+
+Defined in: [is-defined.ts:12](src/is-defined.ts#L12)
+
+___
+
 ### isNull
 
 • `Const` **isNull**: [*Guard*](modules.md#guard)<``null``\>
@@ -185,6 +203,22 @@ ___
 ```
 
 Defined in: [is-object.ts:11](src/is-object.ts#L11)
+
+___
+
+### isPresent
+
+• `Const` **isPresent**: [*Guard*](modules.md#guard)<{}\>
+
+**`returns`** `true` if the value is defined and has a value, AKA is not null
+
+**`example`** 
+```typescript
+  const value: string | null = localStorage.getItem("something");
+  if(isPresent(value)) return [value];
+```
+
+Defined in: [is-present.ts:12](src/is-present.ts#L12)
 
 ___
 

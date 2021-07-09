@@ -4,6 +4,8 @@ export { default as isNumber } from "./is-number";
 export { default as isString } from "./is-string";
 export { default as isBoolean } from "./is-boolean";
 export { default as isNull } from "./is-null";
+export { default as isDefined } from "./is-defined";
+export { default as isPresent } from "./is-present";
 
 export { default as ObjectOf } from "./object-of";
 export { default as RecordOf } from "./record-of";
