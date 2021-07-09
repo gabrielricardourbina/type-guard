@@ -12,3 +12,5 @@ export type TypeOfGuard<G extends Guard<any>> = G extends Guard<infer P>
   ? P
   : never;
 
+export type Maybe<T> = T | undefined;
+export type Nullable<T> = T | null;

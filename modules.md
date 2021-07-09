@@ -5,6 +5,8 @@
 ### Type aliases
 
 - [Guard](modules.md#guard)
+- [Maybe](modules.md#maybe)
+- [Nullable](modules.md#nullable)
 - [OptionalGuard](modules.md#optionalguard)
 - [TypeOfGuard](modules.md#typeofguard)
 
@@ -27,6 +29,8 @@
 ### High Order Guard Functions
 
 - [ArrayOf](modules.md#arrayof)
+- [MaybeOf](modules.md#maybeof)
+- [NullableOf](modules.md#nullableof)
 - [ObjectOf](modules.md#objectof)
 - [OneOf](modules.md#oneof)
 - [OptionalOf](modules.md#optionalof)
@@ -65,6 +69,34 @@ Defined in: [types.ts:1](src/types.ts#L1)
 | `optional?` | *boolean* |
 
 Defined in: [types.ts:1](src/types.ts#L1)
+
+___
+
+### Maybe
+
+Ƭ **Maybe**<T\>: T \| *undefined*
+
+#### Type parameters:
+
+| Name |
+| :------ |
+| `T` |
+
+Defined in: [types.ts:15](src/types.ts#L15)
+
+___
+
+### Nullable
+
+Ƭ **Nullable**<T\>: T \| ``null``
+
+#### Type parameters:
+
+| Name |
+| :------ |
+| `T` |
+
+Defined in: [types.ts:16](src/types.ts#L16)
 
 ___
 
@@ -343,6 +375,68 @@ ___
 a `Guard` that checks if every element of an array is one of the guards passed
 
 Defined in: [array-of.ts:30](src/array-of.ts#L30)
+
+___
+
+### MaybeOf
+
+▸ `Const`**MaybeOf**<T, V\>(`guard`: [*Guard*](modules.md#guard)<T, V\>): [*Guard*](modules.md#guard)<undefined \| T, undefined \| V\>
+
+**`example`** 
+```typescript
+  const isMaybeAge = MaybeOf(isNumber);
+  const isPersonTuple: Guard<[string, number | undefined]> = TupleOf([isString, isMaybeAge]);
+```
+
+#### Type parameters:
+
+| Name | Default |
+| :------ | :------ |
+| `T` | - |
+| `V` | *unknown* |
+
+#### Parameters:
+
+| Name | Type |
+| :------ | :------ |
+| `guard` | [*Guard*](modules.md#guard)<T, V\> |
+
+**Returns:** [*Guard*](modules.md#guard)<undefined \| T, undefined \| V\>
+
+a `Guard` that checks that the value is of the type of the guard passed or undefined
+
+Defined in: [maybe-of.ts:12](src/maybe-of.ts#L12)
+
+___
+
+### NullableOf
+
+▸ `Const`**NullableOf**<T, V\>(`guard`: [*Guard*](modules.md#guard)<T, V\>): [*Guard*](modules.md#guard)<``null`` \| T, ``null`` \| V\>
+
+**`example`** 
+```typescript
+  const isNullableAge = NullableOf(isNumber);
+  const isPersonTuple: Guard<[string, number | null]> = TupleOf([isString, isNullableAge]);
+```
+
+#### Type parameters:
+
+| Name | Default |
+| :------ | :------ |
+| `T` | - |
+| `V` | *unknown* |
+
+#### Parameters:
+
+| Name | Type |
+| :------ | :------ |
+| `guard` | [*Guard*](modules.md#guard)<T, V\> |
+
+**Returns:** [*Guard*](modules.md#guard)<``null`` \| T, ``null`` \| V\>
+
+a `Guard` that checks that the value is of the type of the guard passed or null
+
+Defined in: [nullable-of.ts:12](src/nullable-of.ts#L12)
 
 ___
 

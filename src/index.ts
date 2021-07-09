@@ -16,5 +16,7 @@ export { default as OneOf } from "./one-of";
 export { default as InstanceOf } from "./instance-of";
 export { default as ValueOf } from "./value-of";
 export { default as OptionalOf } from "./optional-of";
+export { default as NullableOf } from "./nullable-of";
+export { default as MaybeOf } from "./maybe-of";
 
-export type { Guard, TypeOfGuard, OptionalGuard } from "./types";
+export type { Guard, TypeOfGuard, OptionalGuard, Maybe, Nullable } from "./types";
