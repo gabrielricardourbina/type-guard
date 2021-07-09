@@ -1,15 +1,50 @@
-import type { Guard } from "./types";
+import type { Guard, OptionalGuard, TypeOfGuard } from "./types";
 import isArray from "./is-array";
 import RecursiveError from "./recursive-error";
 
-type TypeFromGuards<G extends [Guard<any>, ...Guard<any>[]]> = {
-  [K in keyof G]: G[K] extends Guard<infer P> ? P : unknown;
-};
+type TailGuards<P extends Guard<any>[]> = P extends [infer P, ...infer L]
+  ? P extends OptionalGuard<any>
+    ? [P, ...(L extends Guard<any>[] ? TailGuards<L> : [])]
+    : [OptionalGuard<any>, ...(L extends Guard<any>[] ? TailGuards<L> : [])]
+  : [];
 
-type GuardsFromType<T extends [any, ...any[]]> = {
-  [K in keyof T]: Guard<T[K]>;
-} &
-  [Guard<any>, ...Guard<any>[]];
+type HeadGuards<T extends Guard<any>[]> = T extends [infer P, ...infer L]
+  ? P extends OptionalGuard<any>
+    ? [P, ...(L extends Guard<any>[] ? TailGuards<L> : [])]
+    : [
+        ...(P extends Guard<any> ? [P] : []),
+        ...(L extends Guard<any>[] ? HeadGuards<L> : [])
+      ]
+  : [];
+
+type OptionalRequiredGuards<G extends Guard<any>[]> = G & HeadGuards<G>;
+
+type TypeFromGuards<T extends Guard<any>[]> = T extends [infer P, ...infer H]
+  ? [
+      ...(P extends OptionalGuard<any>
+        ? [TypeOfGuard<P>?]
+        : P extends Guard<any>
+        ? [TypeOfGuard<P>]
+        : []),
+      ...(H extends Guard<any>[] ? TypeFromGuards<H> : [])
+    ]
+  : [];
+
+type GuardsFromType<T extends [any?, ...any]> = T extends [infer P, ...infer H]
+  ? [
+      Guard<P>,
+      ...(H extends []
+        ? []
+        : H extends [any?, ...any]
+        ? GuardsFromType<H>
+        : [H])
+    ]
+  : T extends [(infer P)?, ...infer H]
+  ? [
+      OptionalGuard<P>,
+      ...(H extends [] ? [] : H extends [any?] ? GuardsFromType<H> : [])
+    ]
+  : [];
 
 /**
  * @category High Order Guard
@@ -33,17 +68,34 @@ const TupleOf = <
   T extends TypeFromGuards<G>,
   G extends [Guard<any>, ...Guard<any>[]] = GuardsFromType<T>
 >(
-  guards: G | ((self: Guard<T>) => G)
+  guards:
+    | OptionalRequiredGuards<G>
+    | ((self: Guard<T>) => OptionalRequiredGuards<G>)
 ): Guard<T> => {
   const isTupleOf = (tuple: unknown): tuple is T => {
     return (
-      isArray(tuple) && generatedGuards.every((guard, i) => guard(tuple[i]))
+      isArray(tuple) &&
+      generatedGuards.every(
+        (guard, i) =>
+          (guard.optional && tuple[i] === undefined) || guard(tuple[i])
+      )
     );
   };
+
   const generatedGuards = RecursiveError.assert((forbidCall) =>
     typeof guards === "function" ? guards(forbidCall(isTupleOf)) : guards
   );
+  const optionalBoundary = generatedGuards.reduceRight(
+    (i: number, guard, j) => (guard.optional ? j : i),
+    generatedGuards.length
+  );
+  const valid = generatedGuards.every(({ optional }, j) =>
+    optional ? j >= optionalBoundary : j < optionalBoundary
+  );
+
+  if (!valid)
+    throw new TypeError("A required guard cannot follow an optional guard");
+
   return isTupleOf;
 };
-
 export default TupleOf;

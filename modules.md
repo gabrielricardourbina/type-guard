@@ -5,9 +5,10 @@
 ### Type aliases
 
 - [Guard](modules.md#guard)
+- [OptionalGuard](modules.md#optionalguard)
 - [TypeOfGuard](modules.md#typeofguard)
 
-### Guard Functions
+### Guard Variables
 
 - [isArray](modules.md#isarray)
 - [isBoolean](modules.md#isboolean)
@@ -26,6 +27,7 @@
 - [ArrayOf](modules.md#arrayof)
 - [ObjectOf](modules.md#objectof)
 - [OneOf](modules.md#oneof)
+- [OptionalOf](modules.md#optionalof)
 - [RecordOf](modules.md#recordof)
 - [TupleOf](modules.md#tupleof)
 
@@ -56,6 +58,45 @@
 
 Defined in: [types.ts:1](src/types.ts#L1)
 
+| Name | Type |
+| :------ | :------ |
+| `optional?` | *boolean* |
+
+Defined in: [types.ts:1](src/types.ts#L1)
+
+___
+
+### OptionalGuard
+
+Ƭ **OptionalGuard**<T, V\>: (`v`: V) => v is T
+
+#### Type parameters:
+
+| Name | Type | Default |
+| :------ | :------ | :------ |
+| `T` | V | - |
+| `V` | - | *unknown* |
+
+#### Type declaration:
+
+▸ (`v`: V): v is T
+
+#### Parameters:
+
+| Name | Type |
+| :------ | :------ |
+| `v` | V |
+
+**Returns:** v is T
+
+Defined in: [types.ts:6](src/types.ts#L6)
+
+| Name | Type |
+| :------ | :------ |
+| `optional` | ``true`` |
+
+Defined in: [types.ts:6](src/types.ts#L6)
+
 ___
 
 ### TypeOfGuard
@@ -68,28 +109,20 @@ ___
 | :------ | :------ |
 | `G` | [*Guard*](modules.md#guard)<any\> |
 
-Defined in: [types.ts:3](src/types.ts#L3)
+Defined in: [types.ts:11](src/types.ts#L11)
 
-## Guard Functions
+## Guard Variables
 
 ### isArray
 
-▸ `Const`**isArray**(`v`: *unknown*): v is any[] \| readonly any[]
+• `Const` **isArray**: [*Guard*](modules.md#guard)<any[] \| readonly *any*[]\>
+
+**`returns`** `true` if the value is an array
 
 **`example`** 
 ```typescript
   if(isArray(value)) return value.map((e) =>({ e }));
 ```
-
-#### Parameters:
-
-| Name | Type |
-| :------ | :------ |
-| `v` | *unknown* |
-
-**Returns:** v is any[] \| readonly any[]
-
-`true` if the value is an array
 
 Defined in: [is-array.ts:11](src/is-array.ts#L11)
 
@@ -97,22 +130,14 @@ ___
 
 ### isBoolean
 
-▸ `Const`**isBoolean**(`v`: *unknown*): v is boolean
+• `Const` **isBoolean**: [*Guard*](modules.md#guard)<boolean\>
+
+**`returns`** `true` if `typeof value` is "boolean"
 
 **`example`** 
 ```typescript
   if(isBoolean(value)) return !value;
 ```
-
-#### Parameters:
-
-| Name | Type |
-| :------ | :------ |
-| `v` | *unknown* |
-
-**Returns:** v is boolean
-
-`true` if `typeof value` is "boolean"
 
 Defined in: [is-boolean.ts:11](src/is-boolean.ts#L11)
 
@@ -120,22 +145,14 @@ ___
 
 ### isNull
 
-▸ `Const`**isNull**(`v`: *unknown*): v is null
+• `Const` **isNull**: [*Guard*](modules.md#guard)<``null``\>
+
+**`returns`** `true` if value is `null`
 
 **`example`** 
 ```typescript
   if(isNull(value)) return;
 ```
-
-#### Parameters:
-
-| Name | Type |
-| :------ | :------ |
-| `v` | *unknown* |
-
-**Returns:** v is null
-
-`true` if value is `null`
 
 Defined in: [is-null.ts:11](src/is-null.ts#L11)
 
@@ -143,22 +160,14 @@ ___
 
 ### isNumber
 
-▸ `Const`**isNumber**(`v`: *unknown*): v is number
+• `Const` **isNumber**: [*Guard*](modules.md#guard)<number\>
+
+**`returns`** `true` if `typeof value` is "number"
 
 **`example`** 
 ```typescript
   if(isNumber(value)) return value + 10;
 ```
-
-#### Parameters:
-
-| Name | Type |
-| :------ | :------ |
-| `v` | *unknown* |
-
-**Returns:** v is number
-
-`true` if `typeof value` is "number"
 
 Defined in: [is-number.ts:11](src/is-number.ts#L11)
 
@@ -166,22 +175,14 @@ ___
 
 ### isObject
 
-▸ `Const`**isObject**(`v`: *unknown*): v is object
+• `Const` **isObject**: [*Guard*](modules.md#guard)<{ [K in any]: any}\>
+
+**`returns`** `true` if value is **strictly** an instance of **`Object`**
 
 **`example`** 
 ```typescript
   if(isObject(values)) return { ...values, completed:true };
 ```
-
-#### Parameters:
-
-| Name | Type |
-| :------ | :------ |
-| `v` | *unknown* |
-
-**Returns:** v is object
-
-`true` if value is **strictly** an instance of **`Object`**
 
 Defined in: [is-object.ts:11](src/is-object.ts#L11)
 
@@ -189,26 +190,16 @@ ___
 
 ### isString
 
-▸ `Const`**isString**(`v`: *unknown*): v is string
+• `Const` **isString**: [*Guard*](modules.md#guard)<string\>
+
+**`returns`** `true` if `typeof value` is "string"
 
 **`example`** 
 ```typescript
   if(isString(value)) return `${value} - ready`;
 ```
 
-#### Parameters:
-
-| Name | Type |
-| :------ | :------ |
-| `v` | *unknown* |
-
-**Returns:** v is string
-
-`true` if `typeof value` is "string"
-
 Defined in: [is-string.ts:11](src/is-string.ts#L11)
-
-___
 
 ## Guard Factory Functions
 
@@ -370,7 +361,7 @@ ___
 
 a `Guard` that checks if the value respect the structure described by the guard object passed
 
-Defined in: [object-of.ts:40](src/object-of.ts#L40)
+Defined in: [object-of.ts:63](src/object-of.ts#L63)
 
 ___
 
@@ -416,6 +407,40 @@ Defined in: [one-of.ts:26](src/one-of.ts#L26)
 
 ___
 
+### OptionalOf
+
+▸ `Const`**OptionalOf**<T, V\>(`guard`: [*Guard*](modules.md#guard)<T, V\>): [*OptionalGuard*](modules.md#optionalguard)<T, V\>
+
+**`description`** 
+This returns a contextual guard that allows keyed High Order Guards, I.E: TupleOf, that the key might not be present.
+
+**`example`** 
+```typescript
+  const isOptionalAge = OptionalOf(isNumber);
+  const isPersonTuple: Guard<[string, number?]> = TupleOf([isString, isOptionalAge]);
+```
+
+#### Type parameters:
+
+| Name | Default |
+| :------ | :------ |
+| `T` | - |
+| `V` | *unknown* |
+
+#### Parameters:
+
+| Name | Type |
+| :------ | :------ |
+| `guard` | [*Guard*](modules.md#guard)<T, V\> |
+
+**Returns:** [*OptionalGuard*](modules.md#optionalguard)<T, V\>
+
+a `OptionalGuard` of the same type as the guard passed
+
+Defined in: [optional-of.ts:16](src/optional-of.ts#L16)
+
+___
+
 ### RecordOf
 
 ▸ `Const`**RecordOf**<T, G\>(`guards`: G \| (`self`: [*Guard*](modules.md#guard)<T, unknown\>) => G): [*Guard*](modules.md#guard)<T, unknown\>
@@ -456,7 +481,7 @@ ___
 
 ### TupleOf
 
-▸ `Const`**TupleOf**<T, G\>(`guards`: G \| (`self`: [*Guard*](modules.md#guard)<T, unknown\>) => G): [*Guard*](modules.md#guard)<T, unknown\>
+▸ `Const`**TupleOf**<T, G\>(`guards`: *OptionalRequiredGuards*<G\> \| (`self`: [*Guard*](modules.md#guard)<T, unknown\>) => *OptionalRequiredGuards*<G\>): [*Guard*](modules.md#guard)<T, unknown\>
 
 **`throws`** {RecursiveError} When calling the `self` guard in the callback
 
@@ -479,17 +504,17 @@ ___
 
 | Name | Type | Default |
 | :------ | :------ | :------ |
-| `T` | *TypeFromGuards*<G\> | - |
+| `T` | [*any*] | - |
 | `G` | [[*Guard*](modules.md#guard)<any, unknown\>, ...Guard<any, unknown\>[]] | *GuardsFromType*<T\> |
 
 #### Parameters:
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | G \| (`self`: [*Guard*](modules.md#guard)<T, unknown\>) => G |
+| `guards` | *OptionalRequiredGuards*<G\> \| (`self`: [*Guard*](modules.md#guard)<T, unknown\>) => *OptionalRequiredGuards*<G\> |
 
 **Returns:** [*Guard*](modules.md#guard)<T, unknown\>
 
 a `Guard` that checks if the values of the tuple passed respect the types of the guards passed
 
-Defined in: [tuple-of.ts:32](src/tuple-of.ts#L32)
+Defined in: [tuple-of.ts:67](src/tuple-of.ts#L67)

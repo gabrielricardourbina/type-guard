@@ -1,12 +1,35 @@
-import type { Guard } from "./types";
+import type { Guard, OptionalGuard, TypeOfGuard } from "./types";
 import isObject from "./is-object";
 import RecursiveError from "./recursive-error";
 
-type TypeFromGuards<G extends { [K in any]: Guard<any> }> = {
-  [K in keyof G]: G[K] extends Guard<infer P> ? P : unknown;
+type TypeFromGuards<G extends { [K in any]: Guard<any> }> = Merge<
+  RequiredPortion<G>,
+  OptionalPortion<G>
+>;
+
+type OptionalGuardsKeys<G extends { [K in any]: Guard<any> }> = {
+  [K in keyof G]: G[K] extends OptionalGuard<any> ? K : never;
+}[keyof G];
+
+type RequiredGuardsKeys<G extends { [K in any]: Guard<any> }> = {
+  [K in keyof G]: G[K] extends OptionalGuard<any> ? never : K;
+}[keyof G];
+
+type OptionalPortion<G extends { [K in any]: Guard<any> }> = {
+  [K in OptionalGuardsKeys<G>]?: TypeOfGuard<G[K]>;
 };
-type GuardsFromType<T extends { [K in any]: any }> = {
-  [K in keyof T]: Guard<T[K]>;
+type RequiredPortion<G extends { [K in any]: Guard<any> }> = {
+  [K in RequiredGuardsKeys<G>]: TypeOfGuard<G[K]>;
+};
+
+type Merge<A, B> = {
+  [k in keyof (A & B)]: (A & B)[k];
+};
+
+type GuardsFromType<T extends { [key in keyof T]: any }> = {
+  [K in keyof T]-?: T[K] extends { [K in keyof T]-?: T[K] }[K]
+    ? Guard<T[K]>
+    : OptionalGuard<T[K]>;
 };
 /**
  * @category High Order Guard
@@ -45,7 +68,11 @@ const ObjectOf = <
 ): Guard<T> => {
   const isObjectOf = (obj: unknown): obj is T =>
     isObject(obj) &&
-    Object.entries(generatedGuards).every(([key, guard]) => guard(obj[key]));
+    Object.entries(generatedGuards).every(([key, guard]) =>
+      guard.optional
+        ? obj[key] === undefined || guard(obj[key])
+        : key in obj && guard(obj[key])
+    );
 
   const generatedGuards = RecursiveError.assert((forbidCall) =>
     typeof guards === "function" ? guards(forbidCall(isObjectOf)) : guards
@@ -55,3 +82,24 @@ const ObjectOf = <
 };
 
 export default ObjectOf;
+
+// type RequiredKeys<T> = Exclude<
+//   {
+//     [P in keyof T]: T[P] extends RemoveOptionality<T>[P] ? P : never;
+//   }[keyof T],
+//   undefined
+// >;
+
+// type RequiredProps<T extends { [key in keyof T]: any }> = {
+//   [K in RequiredKeys<T>]: T[K] extends RemoveOptionality<T>[K] ? "true": "false";
+// };
+
+// type GGGED<T extends { [key in keyof T]: any }> = {
+//   [K in keyof T]: T[K];
+// }
+
+// type TED = { test: string; alo?: number}
+
+// type R = GuardsFromType<TED>
+
+// const J: "a" | "b" = "a"
