@@ -249,7 +249,7 @@ ___
 
 ### isObject
 
-• `Const` **isObject**: [`Guard`](modules.md#guard)<{ [K in any]: any}\>
+• `Const` **isObject**: [`Guard`](modules.md#guard)<{ [K in any]?: unknown}\>
 
 **`returns`** `true` if value is **strictly** an instance of **`Object`**
 

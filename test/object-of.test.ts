@@ -1,15 +1,10 @@
-import type { Guard } from "../src/types";
-import { expectType } from "tsd";
+import type { Guard } from "../src/";
 import { expect } from "chai";
-import { testEach } from "./tools";
+import { testGuard } from "./tools";
 import RecursiveError from "../src/recursive-error";
-import ObjectOf from "../src/object-of";
-import OptionalOf from "../src/optional-of";
-import isString from "../src/is-string";
-import isNumber from "../src/is-number";
-import isNull from "../src/is-null";
-import OneOf from "../src/one-of";
-import ValueOf from "../src/value-of";
+import { ObjectOf, OptionalOf, isString, isNumber, isNull, OneOf, ValueOf } from "../src";
+
+const ignoreLiteral = <T>(v: T) => v;
 
 it("ObjectOf: throws explicit error when trying to call the 'self' guard in recursive mode", () => {
   expect(() =>
@@ -21,7 +16,6 @@ it("ObjectOf: throws explicit error when trying to call the 'self' guard in recu
     })
   ).to.throw(RecursiveError);
 });
-
 describe("Person: { firstName: string; lastName: string; age: number }", () => {
   type Person = { firstName: string; lastName: string; age: number };
   const isPerson = ObjectOf({
@@ -30,22 +24,28 @@ describe("Person: { firstName: string; lastName: string; age: number }", () => {
     age: isNumber,
   });
 
-  expectType<Guard<Person>>(isPerson);
-
-  testEach(isPerson, "{ firstName: string; lastName: string; age: number }", [
-    [true, { firstName: "Jane", lastName: "Doe", age: 23 }],
-    [true, { firstName: "Jane", lastName: "Doe", age: 23, spouse: "Jon Doe" }],
-    [false, { firstName: "Jane", lastName: "Doe", age: "23" }],
-    [false, { brand: "Toyota", engine: 1.8 }],
-    [false, ["Jane Doe", "23"]],
-    [false, []],
-    [false, ["10", true]],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<Person>>(
+    "{ firstName: string; lastName: string; age: number }"
+  )(isPerson)
+    .pass({ firstName: "Jane", lastName: "Doe", age: 23 })
+    .pass(
+      ignoreLiteral({
+        firstName: "Jane",
+        lastName: "Doe",
+        age: 23,
+        spouse: "Jon Doe",
+      })
+    )
+    .fail({ firstName: "Jane", lastName: "Doe", age: "23" })
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["Jane Doe", "23"])
+    .fail([])
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });
 
 describe("Person: { firstName: string; middleName?: string; lastName: string; age: number | undefined }", () => {
@@ -64,35 +64,31 @@ describe("Person: { firstName: string; middleName?: string; lastName: string; ag
     age: maybeIsNumber,
   });
 
-  expectType<Guard<Person>>(isPerson);
-  testEach(
-    isPerson,
-    "{ firstName: string; middleName?: string; lastName: string; age: number | undefined }",
-    [
-      [true, { firstName: "Jane", lastName: "Doe", age: 23 }],
-      [true, { firstName: "Jane", lastName: "Doe", age: undefined }],
-
-      [
-        true,
-        { firstName: "Jane", lastName: "Doe", age: 23, spouse: "Jon Doe" },
-      ],
-      [
-        true,
-        { firstName: "Jane", lastName: "Doe", age: 23, middleName: "Alice" },
-      ],
-      [false, { firstName: "Jane", lastName: "Doe" }],
-      [false, { firstName: "Jane", lastName: "Doe", age: "23" }],
-      [false, { brand: "Toyota", engine: 1.8 }],
-      [false, ["Jane Doe", "23"]],
-      [false, []],
-      [false, ["10", true]],
-      [false, [10, true]],
-      [false, null],
-      [false, 10],
-      [false, "10"],
-      [false, true],
-    ]
-  );
+  testGuard<Guard<Person>>(
+    "{ firstName: string; middleName?: string; lastName: string; age: number | undefined }"
+  )(isPerson)
+    .pass({ firstName: "Jane", lastName: "Doe", age: 23 })
+    .pass({ firstName: "Jane", lastName: "Doe", age: undefined })
+    .pass(
+      ignoreLiteral({
+        firstName: "Jane",
+        lastName: "Doe",
+        age: 23,
+        spouse: "Jon Doe",
+      })
+    )
+    .pass({ firstName: "Jane", lastName: "Doe", age: 23, middleName: "Alice" })
+    .fail({ firstName: "Jane", lastName: "Doe" })
+    .fail({ firstName: "Jane", lastName: "Doe", age: "23" })
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["Jane Doe", "23"])
+    .fail([])
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });
 
 describe("Person: { firstName: string; lastName: string; age: number, spouse: Person | null }", () => {
@@ -110,32 +106,24 @@ describe("Person: { firstName: string; lastName: string; age: number, spouse: Pe
     spouse: OneOf([self, isNull]),
   }));
 
-  expectType<Guard<Person>>(isPerson);
-
-  testEach(
-    isPerson,
-    "{ firstName: string; lastName: string; age: number, spouse: Person | null }",
-    [
-      [true, { firstName: "Jane", lastName: "Doe", age: 23, spouse: null }],
-      [
-        true,
-        {
-          firstName: "Jane",
-          lastName: "Doe",
-          age: 23,
-          spouse: { firstName: "Jon", lastName: "Doe", age: 23, spouse: null },
-        },
-      ],
-      [false, { firstName: "Jane", lastName: "Doe", age: "23" }],
-      [false, { brand: "Toyota", engine: 1.8 }],
-      [false, ["Jane Doe", "23"]],
-      [false, []],
-      [false, ["10", true]],
-      [false, [10, true]],
-      [false, null],
-      [false, 10],
-      [false, "10"],
-      [false, true],
-    ]
-  );
+  testGuard<Guard<Person>>(
+    "{ firstName: string; lastName: string; age: number, spouse: Person | null }"
+  )(isPerson)
+    .pass({ firstName: "Jane", lastName: "Doe", age: 23, spouse: null })
+    .pass({
+      firstName: "Jane",
+      lastName: "Doe",
+      age: 23,
+      spouse: { firstName: "Jon", lastName: "Doe", age: 23, spouse: null },
+    })
+    .fail({ firstName: "Jane", lastName: "Doe", age: "23" })
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["Jane Doe", "23"])
+    .fail([])
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });

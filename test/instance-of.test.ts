@@ -1,22 +1,17 @@
-import type { Guard } from "../src/types";
-import { expectType } from "tsd";
-import { testEach } from "./tools";
-
-import InstanceOf from "../src/instance-of";
+import type { Guard } from "../src/";
+import { testGuard } from "./tools";
+import { InstanceOf} from "../src";
 
 describe("Date", () => {
   const guard = InstanceOf([Date]);
-  expectType<Guard<Date>>(guard);
-
-  testEach(guard, "Date", [
-    [true, new Date()],
-    [true, new Date(0)],
-    [false, new Object()],
-    [false, ["10", true]],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<Date>>("Date")(guard)
+    .pass(new Date())
+    .pass(new Date(0))
+    .fail(new Object())
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });

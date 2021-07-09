@@ -1,21 +1,16 @@
-import type { Guard } from "../src/types";
-import { expectType } from "tsd";
-import { testEach } from "./tools";
-
-import isNull from "../src/is-null";
+import type { Guard } from "../src/";
+import { testGuard } from "./tools";
+import { isNull } from "../src";
 
 describe("null", () => {
-  expectType<Guard<null>>(isNull);
-
-  testEach(isNull, "null", [
-    [true, null],
-    [false, "John Doe"],
-    [false, ""],
-    [false, "\u0000"],
-    [false, new String("")],
-    [false, { name: "John Doe", age: 18 }],
-    [false, [10, true]],
-    [false, 10],
-    [false, true],
-  ]);
+  testGuard<Guard<null>>("null")(isNull)
+    .pass(null)
+    .fail("John Doe")
+    .fail("")
+    .fail("\u0000")
+    .fail(new String(""))
+    .fail({ name: "John Doe", age: 18 })
+    .fail([10, true])
+    .fail(10)
+    .fail(true);
 });

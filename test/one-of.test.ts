@@ -1,14 +1,8 @@
-import type { Guard } from "../src/types";
-import { expectType } from "tsd";
+import type { Guard } from "../src/";
 import { expect } from "chai";
-import { testEach } from "./tools";
-
+import { testGuard } from "./tools";
 import RecursiveError from "../src/recursive-error";
-import OneOf from "../src/one-of";
-import isString from "../src/is-string";
-import isNumber from "../src/is-number";
-import RecordOf from "../src/record-of";
-import isNull from "../src/is-null";
+import { OneOf, isString, isNumber, isNull, RecordOf } from "../src";
 
 it("OneOf: throws explicit error when trying to call the 'self' guard in recursive mode", () => {
   expect(() =>
@@ -21,17 +15,14 @@ it("OneOf: throws explicit error when trying to call the 'self' guard in recursi
 
 describe("Grade: string | number", () => {
   const isGrade = OneOf([isString, isNumber]);
-  expectType<Guard<string | number>>(isGrade);
-
-  testEach(isGrade, "string | number", [
-    [true, 10],
-    [true, "A+"],
-    [false, { value: 10 }],
-    [false, []],
-    [false, [10, true]],
-    [false, null],
-    [false, true],
-  ]);
+  testGuard<Guard<string | number>>("string | number")(isGrade)
+    .pass(10)
+    .pass("A+")
+    .fail({ value: 10 })
+    .fail([])
+    .fail([10, true])
+    .fail(null)
+    .fail(true);
 });
 
 describe("Grades: string | number | Record<string, Grades>", () => {
@@ -41,17 +32,15 @@ describe("Grades: string | number | Record<string, Grades>", () => {
     isNumber,
     RecordOf([self]),
   ]);
-  expectType<Guard<Grades>>(isGrades);
 
-  testEach(isGrades, "string | number | Record<string, Grades>", [
-    [true, 10],
-    [true, "A+"],
-    [true, { math: 10, english: { writing: "A" } }],
-    [false, { math: 10, english: ["A", "B"] }],
-    [false, ["A"]],
-    [false, [10]],
-    [false, [10, true]],
-    [false, null],
-    [false, true],
-  ]);
+  testGuard<Guard<Grades>>("string | number | Record<string, Grades>")(isGrades)
+    .pass(10)
+    .pass("A+")
+    .pass({ math: 10, english: { writing: "A" } })
+    .fail({ math: 10, english: ["A", "B"] })
+    .fail(["A"])
+    .fail([10])
+    .fail([10, true])
+    .fail(null)
+    .fail(true);
 });

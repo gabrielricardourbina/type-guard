@@ -5,7 +5,6 @@ const fs = require("fs").promises;
     main: "index.js",
     types: "index.d.ts",
     scripts: undefined,
-    tsd: undefined,
   };
   const packageString = await fs.readFile("package.json", "utf8");
   const packageConfig = JSON.parse(packageString);

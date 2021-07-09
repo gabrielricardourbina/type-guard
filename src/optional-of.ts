@@ -1,4 +1,4 @@
-import { Guard, OptionalGuard } from "./types";
+import type { Guard, OptionalGuard } from "./types";
 
 const optional = { optional: true } as const;
 

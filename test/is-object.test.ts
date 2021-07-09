@@ -1,24 +1,21 @@
-import type { Guard } from "../src/types";
-import { expectType } from "tsd";
-import { testEach } from "./tools";
-
-import isObject from "../src/is-object";
+import type { Guard } from "../src/";
+import { testGuard } from "./tools";
+import { isObject } from "../src";
 
 describe("object {}", () => {
-  expectType<Guard<{ [k: string]: any; [x: number]: any }>>(isObject);
-
-  testEach(isObject, "object {}", [
-    [true, {}],
-    [true, { name: "Jon Snow" }],
-    [true, { amount: 123 }],
-    [true, { name: "John Doe", age: 18 }],
-    [false, new String("")],
-    [false, new Number("")],
-    [false, Object.create(null)],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<{ [K in any]?: unknown }>>("object {}")(
+    isObject
+  )
+    .pass({})
+    .pass({ name: "Jon Snow" })
+    .pass({ amount: 123 })
+    .pass({ name: "John Doe", age: 18 })
+    .fail(new String(""))
+    .fail(new Number(""))
+    .fail([10, true])
+    .fail(Object.create(null))
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });

@@ -75,6 +75,7 @@ const TupleOf = <
   const isTupleOf = (tuple: unknown): tuple is T => {
     return (
       isArray(tuple) &&
+      tuple.length <= generatedGuards.length &&
       generatedGuards.every(
         (guard, i) =>
           (guard.optional && tuple[i] === undefined) || guard(tuple[i])
@@ -85,17 +86,20 @@ const TupleOf = <
   const generatedGuards = RecursiveError.assert((forbidCall) =>
     typeof guards === "function" ? guards(forbidCall(isTupleOf)) : guards
   );
+
   const optionalBoundary = generatedGuards.reduceRight(
     (i: number, guard, j) => (guard.optional ? j : i),
     generatedGuards.length
   );
-  const valid = generatedGuards.every(({ optional }, j) =>
-    optional ? j >= optionalBoundary : j < optionalBoundary
+
+  const hasRequiredAfterBoundary = generatedGuards.some(({ optional }, j) =>
+    optional ? j < optionalBoundary : j >= optionalBoundary
   );
 
-  if (!valid)
+  if (hasRequiredAfterBoundary)
     throw new TypeError("A required guard cannot follow an optional guard");
 
   return isTupleOf;
 };
+
 export default TupleOf;

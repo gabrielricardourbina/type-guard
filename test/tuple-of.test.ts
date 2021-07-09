@@ -1,15 +1,16 @@
-import type { Guard } from "../src/types";
-import { expectType } from "tsd";
+import type { Guard } from "../src/";
 import { expect } from "chai";
-import { testEach } from "./tools";
+import { testGuard } from "./tools";
 import RecursiveError from "../src/recursive-error";
-import TupleOf from "../src/tuple-of";
-import isString from "../src/is-string";
-import isNumber from "../src/is-number";
-import isBoolean from "../src/is-boolean";
-import isNull from "../src/is-null";
-import OneOf from "../src/one-of";
-import OptionalOf from "../src/optional-of";
+import {
+  isBoolean,
+  isNumber,
+  isNull,
+  TupleOf,
+  isString,
+  OneOf,
+  OptionalOf,
+} from "../src";
 
 it("TupleOf: throws RecursiveError when trying to call the 'self' guard in recursive mode", () => {
   expect(() => {
@@ -34,43 +35,39 @@ it("TupleOf: throws TypeError when placing a required guard after an optional on
 
 describe("Person: [string, number]", () => {
   const isPersonTuple = TupleOf([isString, isNumber]);
-  expectType<Guard<[string, number]>>(isPersonTuple);
-
-  testEach(isPersonTuple, "[string, number]", [
-    [true, ["Jane Doe", 24]],
-    [true, ["Jane Doe", 23, true]],
-    [false, { brand: "Toyota", engine: 1.8 }],
-    [false, ["Jane Doe", "23"]],
-    [false, []],
-    [false, ["10", true]],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<[string, number]>>("[string, number]")(isPersonTuple)
+    .pass(["Jane Doe", 24])
+    .fail(["Jane Doe", 23, true])
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["Jane Doe", "23"])
+    .fail([])
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });
 
 describe("Person: [string, number, boolean?]", () => {
   const isOptionalBoolean = OptionalOf(isBoolean);
   const isPersonTuple = TupleOf([isString, isNumber, isOptionalBoolean]);
-  expectType<Guard<[string, number, boolean?]>>(isPersonTuple);
-
-  testEach(isPersonTuple, "[string, number, boolean?]", [
-    [true, ["Jane Doe", 24]],
-    [true, ["Jane Doe", 23, true]],
-    [true, ["Jane Doe", 23, undefined]],
-    [false, { brand: "Toyota", engine: 1.8 }],
-    [false, ["Jane Doe", "23"]],
-    [false, ["Jane Doe"]],
-    [false, []],
-    [false, ["10", true]],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<[string, number, boolean?]>>("[string, number, boolean?]")(
+    isPersonTuple
+  )
+    .pass(["Jane Doe", 24])
+    .pass(["Jane Doe", 23, true])
+    .pass(["Jane Doe", 23, undefined])
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["Jane Doe", "23"])
+    .fail(["Jane Doe"])
+    .fail([])
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });
 
 describe("Person: [string, number, Person | null] ", () => {
@@ -80,20 +77,18 @@ describe("Person: [string, number, Person | null] ", () => {
     isNumber,
     OneOf([self, isNull]),
   ]);
-  expectType<Guard<Person>>(isPersonTuple);
 
-  testEach(isPersonTuple, "[string, number, Person | null]", [
-    [true, ["Jane Doe", 24, null]],
-    [true, ["Jane Doe", 23, ["Peter Doe", 54, null]]],
-    [false, ["Jane Doe", 23, true]],
-    [false, { brand: "Toyota", engine: 1.8 }],
-    [false, ["Jane Doe", "23"]],
-    [false, []],
-    [false, ["10", true]],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<Person>>("[string, number, Person | null]")(isPersonTuple)
+    .pass(["Jane Doe", 24, null])
+    .pass(["Jane Doe", 23, ["Peter Doe", 54, null]])
+    .fail(["Jane Doe", 23, true])
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["Jane Doe", "23"])
+    .fail([])
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });

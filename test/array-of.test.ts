@@ -1,13 +1,8 @@
-import type { Guard } from "../src/types";
-import { expectType } from "tsd";
+import type { Guard } from "../src/";
 import { expect } from "chai";
-import { testEach } from "./tools";
-
+import { testGuard } from "./tools";
 import RecursiveError from "../src/recursive-error";
-import ArrayOf from "../src/array-of";
-import isString from "../src/is-string";
-import isNumber from "../src/is-number";
-import isNull from "../src/is-null";
+import { ArrayOf, isString, isNumber, isNull } from "../src";
 
 it("ArrayOf: throws explicit error when trying to call the 'self' guard in recursive mode", () => {
   expect(() =>
@@ -20,56 +15,47 @@ it("ArrayOf: throws explicit error when trying to call the 'self' guard in recur
 
 describe("Names: string[]", () => {
   const guard = ArrayOf([isString]);
-  expectType<Guard<string[]>>(guard);
-
-  testEach(guard, "string[]", [
-    [true, ["Victor", "Elena", "Maria"]],
-    [true, []],
-    [false, ["Victor", 12, "Maria"]],
-    [false, { brand: "Toyota", engine: 1.8 }],
-    [false, ["10", true]],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<string[]>>("string[]")(guard)
+    .pass(["Victor", "Elena", "Maria"])
+    .pass([])
+    .fail(["Victor", 12, "Maria"])
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });
 
 describe("NamesOrId: (string| number)[]", () => {
   const guard = ArrayOf([isString, isNumber]);
-  expectType<Guard<(string | number)[]>>(guard);
-
-  testEach(guard, "(string| number)[]", [
-    [true, ["Victor", "Elena", "Maria"]],
-    [true, []],
-    [true, ["Victor", 12, "Maria"]],
-    [false, { brand: "Toyota", engine: 1.8 }],
-    [false, ["10", true]],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<(string | number)[]>>("(string| number)[]")(guard)
+    .pass(["Victor", "Elena", "Maria"])
+    .pass([])
+    .pass(["Victor", 12, "Maria"])
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });
 
 describe("FullNames: (string | FullNames)[]", () => {
   type FullNames = (string | FullNames)[];
   const guard = ArrayOf<FullNames>((self) => [isString, self]);
-  expectType<Guard<FullNames>>(guard);
-
-  testEach(guard, "(string | FullNames)[]", [
-    [true, ["Victor", "Elena", "Maria"]],
-    [true, []],
-    [true, ["Victor", ["Elena", "Maria"]]],
-    [false, ["Victor", 12, "Maria"]],
-    [false, { brand: "Toyota", engine: 1.8 }],
-    [false, ["10", true]],
-    [false, [10, true]],
-    [false, null],
-    [false, 10],
-    [false, "10"],
-    [false, true],
-  ]);
+  testGuard<Guard<FullNames>>("(string | FullNames)[]")(guard)
+    .pass(["Victor", "Elena", "Maria"])
+    .pass([])
+    .pass(["Victor", ["Elena", "Maria"]])
+    .fail(["Victor", 12, "Maria"])
+    .fail({ brand: "Toyota", engine: 1.8 })
+    .fail(["10", true])
+    .fail([10, true])
+    .fail(null)
+    .fail(10)
+    .fail("10")
+    .fail(true);
 });

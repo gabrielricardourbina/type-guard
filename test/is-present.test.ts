@@ -1,10 +1,8 @@
-import type { Guard } from "../src/types";
-import { expectType } from "tsd";
-import { testEach } from "./tools";
-import isPresent from "../src/is-present";
+import type { Guard } from "../src/";
+import { testGuard, expectExactType } from "./tools";
+import { isPresent } from "../src";
 
 describe("Present: {}", () => {
-  expectType<Guard<{}>>(isPresent);
   const str: string | undefined | null = "hola" as any;
   const num: number | undefined | null = 12 as any;
   const fn: (() => void) | undefined | null = (() => {}) as any;
@@ -13,25 +11,24 @@ describe("Present: {}", () => {
   const rec: { [k: string]: number } | undefined | null = { test: 12 } as any;
   const unk: unknown = undefined;
 
-  if (isPresent(unk)) expectType<{}>(unk);
-  if (isPresent(str)) expectType<string>(str);
-  if (isPresent(num)) expectType<number>(num);
-  if (isPresent(fn)) expectType<() => void>(fn);
-  if (isPresent(arr)) expectType<any[]>(arr);
-  if (isPresent(obj)) expectType<{ test: number }>(obj);
-  if (isPresent(rec)) expectType<{ [k: string]: number }>(rec);
+  if (isPresent(unk)) expectExactType<{}>()(unk);
+  if (isPresent(str)) expectExactType<string>()(str);
+  if (isPresent(num)) expectExactType<number>()(num);
+  if (isPresent(fn)) expectExactType<() => void>()(fn);
+  if (isPresent(arr)) expectExactType<any[]>()(arr);
+  if (isPresent(obj)) expectExactType<{ test: number }>()(obj);
+  if (isPresent(rec)) expectExactType<{ [k: string]: number }>()(rec);
 
-  testEach(isPresent, "{}", [
-    [true, ["John Doe", "Oliver King", "Pedro Perez"]],
-    [true, [12, "Oliver King", true]],
-    [true, []],
-    [true, "John Doe"],
-    [true, { name: "John Doe", age: 18 }],
-    [true, 10],
-    [true, true],
-    [true, false],
-    [true, () => {}],
-    [false, undefined],
-    [false, null],
-  ]);
+  testGuard<Guard<{}>>("{}")(isPresent)
+    .pass(["John Doe", "Oliver King", "Pedro Perez"])
+    .pass([12, "Oliver King", true])
+    .pass([])
+    .pass("John Doe")
+    .pass({ name: "John Doe", age: 18 })
+    .pass(10)
+    .pass(true)
+    .pass(false)
+    .pass(() => {})
+    .fail(undefined)
+    .fail(null);
 });
