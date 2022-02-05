@@ -2,7 +2,7 @@ import type { Guard, OptionalGuard, TypeOfGuard } from "./types";
 import isArray from "./is-array";
 import RecursiveError from "./recursive-error";
 
-type TailGuards<P extends Guard<any>[]> = P extends [infer P, ...infer L]
+type TailGuards<H extends Guard<any>[]> = H extends [infer P, ...infer L]
   ? P extends OptionalGuard<any>
     ? [P, ...(L extends Guard<any>[] ? TailGuards<L> : [])]
     : [OptionalGuard<any>, ...(L extends Guard<any>[] ? TailGuards<L> : [])]
