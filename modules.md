@@ -1,4 +1,4 @@
-# @gabrielurbina/type-guard - v0.1.5
+# @gabrielurbina/type-guard - v0.1.6
 
 ## Table of contents
 
@@ -74,11 +74,12 @@ v is V extends T ? V : never
 
 | Name | Type |
 | :------ | :------ |
+| `[signature]?` | (`v`: `S`) => v is T |
 | `optional?` | `boolean` |
 
 #### Defined in
 
-[types.ts:1](src/types.ts#L1)
+[types.ts:2](src/types.ts#L2)
 
 ___
 
@@ -94,7 +95,7 @@ ___
 
 #### Defined in
 
-[types.ts:15](src/types.ts#L15)
+[types.ts:18](src/types.ts#L18)
 
 ___
 
@@ -110,7 +111,7 @@ ___
 
 #### Defined in
 
-[types.ts:16](src/types.ts#L16)
+[types.ts:19](src/types.ts#L19)
 
 ___
 
@@ -149,11 +150,12 @@ v is V extends T ? V : never
 
 | Name | Type |
 | :------ | :------ |
+| `[signature]?` | (`v`: `S`) => v is T |
 | `optional` | ``true`` |
 
 #### Defined in
 
-[types.ts:6](src/types.ts#L6)
+[types.ts:8](src/types.ts#L8)
 
 ___
 
@@ -169,7 +171,7 @@ ___
 
 #### Defined in
 
-[types.ts:11](src/types.ts#L11)
+[types.ts:14](src/types.ts#L14)
 
 ## Guard Variables
 
@@ -352,7 +354,7 @@ ___
 
 ### ValueOf
 
-▸ `Const` **ValueOf**<`T`\>(`expectedValues`): <V\>(`value`: `V`) => value is V extends T ? V : never
+▸ `Const` **ValueOf**<`T`\>(`expectedValues`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
 
 **`example`**
 ```typescript
@@ -373,31 +375,13 @@ ___
 
 #### Returns
 
-`fn`
+[`Guard`](modules.md#guard)<`T`, `unknown`\>
 
 a Guard that checks if a value is **identical** to one of the values passed
 
-▸ <`V`\>(`value`): value is V extends T ? V : never
-
-##### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `V` | extends `unknown` |
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `V` |
-
-##### Returns
-
-value is V extends T ? V : never
-
 #### Defined in
 
-[value-of.ts:9](src/value-of.ts#L9)
+[value-of.ts:11](src/value-of.ts#L11)
 
 ___
 
