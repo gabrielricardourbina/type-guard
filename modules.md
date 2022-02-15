@@ -1,4 +1,4 @@
-# @gabrielurbina/type-guard - v0.1.4
+# @gabrielurbina/type-guard - v0.1.5
 
 ## Table of contents
 
@@ -41,18 +41,24 @@
 
 ### Guard
 
-Ƭ **Guard**<`T`, `V`\>: `Object`
+Ƭ **Guard**<`T`, `S`\>: `Object`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `V` |
-| `V` | `unknown` |
+| `T` | extends `S` |
+| `S` | `unknown` |
 
 #### Call signature
 
-▸ (`v`): v is T
+▸ <`V`\>(`v`): v is V extends T ? V : never
+
+##### Type parameters
+
+| Name |
+| :------ |
+| `V` |
 
 ##### Parameters
 
@@ -62,7 +68,7 @@
 
 ##### Returns
 
-v is T
+v is V extends T ? V : never
 
 #### Type declaration
 
@@ -110,18 +116,24 @@ ___
 
 ### OptionalGuard
 
-Ƭ **OptionalGuard**<`T`, `V`\>: `Object`
+Ƭ **OptionalGuard**<`T`, `S`\>: `Object`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
-| `T` | extends `V` |
-| `V` | `unknown` |
+| `T` | extends `S` |
+| `S` | `unknown` |
 
 #### Call signature
 
-▸ (`v`): v is T
+▸ <`V`\>(`v`): v is V extends T ? V : never
+
+##### Type parameters
+
+| Name |
+| :------ |
+| `V` |
 
 ##### Parameters
 
@@ -131,7 +143,7 @@ ___
 
 ##### Returns
 
-v is T
+v is V extends T ? V : never
 
 #### Type declaration
 
@@ -340,7 +352,7 @@ ___
 
 ### ValueOf
 
-▸ `Const` **ValueOf**<`T`\>(`expectedValues`): (`value`: `unknown`) => value is T
+▸ `Const` **ValueOf**<`T`\>(`expectedValues`): <V\>(`value`: `V`) => value is V extends T ? V : never
 
 **`example`**
 ```typescript
@@ -365,17 +377,23 @@ ___
 
 a Guard that checks if a value is **identical** to one of the values passed
 
-▸ (`value`): value is T
+▸ <`V`\>(`value`): value is V extends T ? V : never
+
+##### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `V` | extends `unknown` |
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `value` | `unknown` |
+| `value` | `V` |
 
 ##### Returns
 
-value is T
+value is V extends T ? V : never
 
 #### Defined in
 
@@ -463,7 +481,7 @@ a `Guard` that checks that the value is of the type of the guard passed or undef
 
 #### Defined in
 
-[maybe-of.ts:12](src/maybe-of.ts#L12)
+[maybe-of.ts:15](src/maybe-of.ts#L15)
 
 ___
 
@@ -498,7 +516,7 @@ a `Guard` that checks that the value is of the type of the guard passed or null
 
 #### Defined in
 
-[nullable-of.ts:12](src/nullable-of.ts#L12)
+[nullable-of.ts:14](src/nullable-of.ts#L14)
 
 ___
 
@@ -607,7 +625,7 @@ ___
 
 ### OptionalOf
 
-▸ `Const` **OptionalOf**<`T`, `V`\>(`guard`): [`OptionalGuard`](modules.md#optionalguard)<`T`, `V`\>
+▸ `Const` **OptionalOf**<`T`, `S`\>(`guard`): [`OptionalGuard`](modules.md#optionalguard)<`T`, `S`\>
 
 **`description`**
 This returns a contextual guard that allows keyed High Order Guards, I.E: TupleOf, that the key might not be present.
@@ -623,17 +641,17 @@ This returns a contextual guard that allows keyed High Order Guards, I.E: TupleO
 | Name | Type |
 | :------ | :------ |
 | `T` | `T` |
-| `V` | `unknown` |
+| `S` | `unknown` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guard` | [`Guard`](modules.md#guard)<`T`, `V`\> |
+| `guard` | [`Guard`](modules.md#guard)<`T`, `S`\> |
 
 #### Returns
 
-[`OptionalGuard`](modules.md#optionalguard)<`T`, `V`\>
+[`OptionalGuard`](modules.md#optionalguard)<`T`, `S`\>
 
 a `OptionalGuard` of the same type as the guard passed
 

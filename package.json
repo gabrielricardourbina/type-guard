@@ -1,6 +1,6 @@
 {
 	"name": "@gabrielurbina/type-guard",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "Type safety for your IO",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
 		"build": "tsc --project tsconfig.build.json",
 		"prerelease": "node prerelease.js",
 		"release": "cd dist && npm publish",
-		"lint": "eslint src/**",
+		"lint": "eslint src/** test/**",
 		"test": "mocha --exit",
 		"test:cover": "nyc mocha --exit"
 	},
@@ -41,8 +41,8 @@
 		"mocha": "^9.0.2",
 		"nyc": "^15.1.0",
 		"prettier": "^2.3.2",
-		"ts-node": "^10.0.0",
-		"tslib": "^2.3.0",
-		"typescript": "^4.3.5"
+		"ts-node": "^10.5.0",
+		"tslib": "^2.3.1",
+		"typescript": "^4.5.5"
 	}
 }
