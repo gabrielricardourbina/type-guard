@@ -1,10 +1,10 @@
-export type Guard<T extends V, V = unknown> = {
-  (v: V): v is T;
+export type Guard<T extends S, S = unknown> = {
+  <V extends S>(v: V): v is V extends T? V: never;
   optional?: boolean;
 };
 
-export type OptionalGuard<T extends V, V = unknown> = {
-  (v: V): v is T;
+export type OptionalGuard<T extends S, S = unknown> = {
+  <V extends S>(v: V): v is V extends T? V: never;
   optional: true;
 };
 

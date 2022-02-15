@@ -8,7 +8,8 @@ import type { Guard } from "./types";
  *   if(isString(value)) return `${value} - ready`;
  * ```
  */
-const isString: Guard<string> = (value: unknown): value is string =>
-  typeof value === "string";
+const isString: Guard<string> = <V>(
+  value: V
+): value is V extends string ? V : never => typeof value === "string";
 
 export default isString;

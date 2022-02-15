@@ -66,7 +66,7 @@ const ObjectOf = <
 >(
   guards: G | ((self: Guard<T>) => G)
 ): Guard<T> => {
-  const isObjectOf = (obj: unknown): obj is T =>
+  const isObjectOf = <V>(obj: V): obj is V extends T ? V : never =>
     isObject(obj) &&
     Object.entries(generatedGuards).every(([key, guard]) =>
       guard.optional

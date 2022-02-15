@@ -33,7 +33,7 @@ const ArrayOf = <
 >(
   guards: G | ((self: Guard<T>) => G)
 ): Guard<T> => {
-  const isArrayOf = (value: unknown): value is T => {
+  const isArrayOf = <V>(value: V): value is V extends T ? V : never => {
     return (
       isArray(value) &&
       value.every((value) => generatedGuards.some((guard) => guard(value)))

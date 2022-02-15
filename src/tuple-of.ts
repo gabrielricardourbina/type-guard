@@ -72,7 +72,7 @@ const TupleOf = <
     | OptionalRequiredGuards<G>
     | ((self: Guard<T>) => OptionalRequiredGuards<G>)
 ): Guard<T> => {
-  const isTupleOf = (tuple: unknown): tuple is T => {
+  const isTupleOf = <V>(tuple: V): tuple is V extends T ? V : never => {
     return (
       isArray(tuple) &&
       tuple.length <= generatedGuards.length &&

@@ -27,7 +27,7 @@ const InstanceOf = <
 >(
   constructors: C
 ): Guard<T> => {
-  return (value: unknown): value is T => {
+  return <V>(value: V): value is V extends T ? V : never => {
     return constructors.some((constructor) => value instanceof constructor);
   };
 };

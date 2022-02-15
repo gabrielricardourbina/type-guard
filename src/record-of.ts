@@ -26,7 +26,7 @@ const RecordOf = <
 >(
   guards: G | ((self: Guard<T>) => G)
 ): Guard<T> => {
-  const isRecordOf = (rec: unknown): rec is T => {
+  const isRecordOf = <V>(rec: V): rec is V extends T ? V : never => {
     return (
       isObject(rec) &&
       Object.values(rec).every((v) => generatedGuards.some((guard) => guard(v)))

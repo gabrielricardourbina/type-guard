@@ -9,6 +9,6 @@ import type { Guard } from "./types";
  *   if(isPresent(value)) return [value];
  * ```
  */
-const isPresent: Guard<{}> = (value: unknown): value is {} =>
+const isPresent: Guard<{}> = <V>(value: V): value is V extends {} ? V : never =>
   value !== undefined && value !== null;
 export default isPresent;

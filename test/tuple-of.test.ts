@@ -27,7 +27,7 @@ it("TupleOf: throws TypeError when placing a required guard after an optional on
     const optionalString = OptionalOf(isString);
     TupleOf([
       optionalString,
-      //@ts-expect-error
+      //@ts-expect-error This is expected to fail, as part of the test
       isNumber,
     ]);
   }).to.throw(TypeError, "A required guard cannot follow an optional guard");

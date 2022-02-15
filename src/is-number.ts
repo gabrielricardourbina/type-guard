@@ -8,7 +8,8 @@ import type { Guard } from "./types";
  *   if(isNumber(value)) return value + 10;
  * ```
  */
-const isNumber: Guard<number> = (value: unknown): value is number =>
-  typeof value === "number";
+const isNumber: Guard<number> = <V>(
+  value: V
+): value is V extends number ? V : never => typeof value === "number";
 
 export default isNumber;

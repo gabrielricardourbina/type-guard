@@ -8,8 +8,8 @@ import type { Guard } from "./types";
  *   if(isArray(value)) return value.map((e) =>({ e }));
  * ```
  */
-const isArray: Guard<any[] | readonly any[]> = (
-  value: unknown
-): value is any[] | readonly any[] => Array.isArray(value);
+const isArray: Guard<any[] | readonly any[]> = <V>(
+  value: V
+): value is V extends any[] | readonly any[] ? V : never=> Array.isArray(value);
 
 export default isArray;

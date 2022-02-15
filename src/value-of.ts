@@ -7,7 +7,7 @@
  * ```
  */
 const ValueOf = <T>(expectedValues: readonly T[] | T[]) => {
-	return (value: unknown): value is T => {
+	return <V extends any>(value: V): value is V extends T ? V: never => {
 		return expectedValues.some(expected => value === expected);
 	};
 };
