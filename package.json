@@ -1,6 +1,6 @@
 {
 	"name": "@gabrielurbina/type-guard",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"description": "Type safety for your IO",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
