@@ -1,5 +1,5 @@
 import type { Guard } from "./types";
-import RecursiveError from "../src/recursive-error";
+import RecursiveError from "./recursive-error";
 
 type TypeFromGuards<G extends Guard<any>[]> = G extends Guard<infer P>[]
   ? P
