@@ -8,8 +8,6 @@ import type { Guard } from "./types";
  *   if(isNull(value)) return;
  * ```
  */
-const isNull: Guard<null> = <V>(
-  value: V
-): value is V extends null ? V : never => value === null;
+const isNull: Guard<null> = (value: unknown): value is null => value === null;
 
 export default isNull;

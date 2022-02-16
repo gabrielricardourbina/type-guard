@@ -8,8 +8,7 @@ import type { Guard } from "./types";
  *   if(isBoolean(value)) return !value;
  * ```
  */
-const isBoolean: Guard<boolean> = <V>(
-  value: V
-): value is V extends boolean ? V : never => typeof value === "boolean";
+const isBoolean: Guard<boolean> = (value: unknown): value is boolean =>
+  typeof value === "boolean";
 
 export default isBoolean;

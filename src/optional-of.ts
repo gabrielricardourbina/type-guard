@@ -13,10 +13,10 @@ const optional = { optional: true } as const;
  *   const isPersonTuple: Guard<[string, number?]> = TupleOf([isString, isOptionalAge]);
  * ```
  */
-const OptionalOf = <T extends S, S = unknown>(
-  guard: Guard<T, S>
-): OptionalGuard<T, S> => {
-  return Object.assign(<V extends S>(v: V): v is V extends T? V : never=> guard(v), optional);
+const OptionalOf = <T extends V, V = unknown>(
+  guard: Guard<T, V>
+): OptionalGuard<T, V> => {
+  return Object.assign((v: V): v is T => guard(v), optional);
 };
 
 export default OptionalOf;

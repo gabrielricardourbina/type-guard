@@ -9,7 +9,7 @@ import type { Guard } from "./types";
  * ```
  */
 const ValueOf = <T>(expectedValues: readonly T[] | T[]): Guard<T> => {
-	return <V extends any>(value: V): value is V extends T ? V: never => {
+	return (value: unknown): value is T => {
 		return expectedValues.some(expected => value === expected);
 	};
 };

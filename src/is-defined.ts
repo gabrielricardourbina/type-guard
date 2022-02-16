@@ -9,8 +9,6 @@ import type { Guard } from "./types";
  *   if(isDefined(value)) return [value];
  * ```
  */
-const isDefined: Guard<{} | null> = <V>(
-  value: V
-): value is V extends {} | null ? V : never => value !== undefined;
+const isDefined: Guard<{} | null> = (value: unknown): value is {} | null => value !== undefined;
 
 export default isDefined;

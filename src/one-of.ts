@@ -29,7 +29,7 @@ const OneOf = <
 >(
   guards: G | ((self: Guard<T>) => G)
 ): Guard<T> => {
-  const isOneOf = <V>(value: V): value is V extends T ? V : never => {
+  const isOneOf = (value: unknown): value is T => {
     return generatedGuards.some((guard) => guard(value));
   };
 
