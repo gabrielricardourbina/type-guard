@@ -1,4 +1,4 @@
-# <img width="50" alt="logo" src="https://raw.githubusercontent.com/gabrielurbina/type-guard/master/logo.svg"> Type Guard [![GitHub license](https://img.shields.io/npm/l/@gabrielurbina/type-guard?color=%232a7e7d&style=flat-square)](https://github.com/gabrielurbina/type-guard/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@gabrielurbina/type-guard?color=%232a7e7d&style=flat-square)](https://www.npmjs.com/package/@gabrielurbina/type-guard) 
+# <img width="50" alt="logo" src="https://raw.githubusercontent.com/gabrielricardourbina/type-guard/master/logo.svg"> Type Guard [![GitHub license](https://img.shields.io/npm/l/@gabrielurbina/type-guard?color=%232a7e7d&style=flat-square)](https://github.com/gabrielricardourbina/type-guard/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@gabrielurbina/type-guard?color=%232a7e7d&style=flat-square)](https://www.npmjs.com/package/@gabrielurbina/type-guard) 
 
 _Bring Typescript types to your run time_
 

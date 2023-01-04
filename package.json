@@ -1,6 +1,6 @@
 {
 	"name": "@gabrielurbina/type-guard",
-	"version": "0.1.11",
+	"version": "0.1.12",
 	"description": "Type safety for your IO",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -18,18 +18,18 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/gabrielurbina/type-guard.git"
+		"url": "git+https://github.com/gabrielricardourbina/type-guard.git"
 	},
 	"keywords": [
 		"typescript",
 		"functional"
 	],
-	"author": "Gabriel R. Urbina R.",
+	"author": "Gabriel Ricardo Urbina",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/gabrielurbina/type-guard/issues"
+		"url": "https://github.com/gabrielricardourbina/type-guard/issues"
 	},
-	"homepage": "https://github.com/gabrielurbina/type-guard#readme",
+	"homepage": "https://github.com/gabrielricardourbina/type-guard#readme",
 	"devDependencies": {
 		"@types/chai": "^4.2.20",
 		"@types/mocha": "^8.2.3",
