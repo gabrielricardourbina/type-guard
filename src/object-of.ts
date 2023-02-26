@@ -82,24 +82,3 @@ const ObjectOf = <
 };
 
 export default ObjectOf;
-
-// type RequiredKeys<T> = Exclude<
-//   {
-//     [P in keyof T]: T[P] extends RemoveOptionality<T>[P] ? P : never;
-//   }[keyof T],
-//   undefined
-// >;
-
-// type RequiredProps<T extends { [key in keyof T]: any }> = {
-//   [K in RequiredKeys<T>]: T[K] extends RemoveOptionality<T>[K] ? "true": "false";
-// };
-
-// type GGGED<T extends { [key in keyof T]: any }> = {
-//   [K in keyof T]: T[K];
-// }
-
-// type TED = { test: string; alo?: number}
-
-// type R = GuardsFromType<TED>
-
-// const J: "a" | "b" = "a"

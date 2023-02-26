@@ -7,7 +7,7 @@ type TypeFromConstructors<C extends Constructor<any>[]> = C extends Constructor<
 >[]
   ? P
   : unknown;
-type ConstructorsFromType<T extends any> = Constructor<T>[];
+type ConstructorsFromType<T> = Constructor<T>[];
 
 /**
  * @category Guard Factory

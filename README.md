@@ -80,7 +80,7 @@ const isStudent = ObjectOf({
 	active: isBoolean
 });
 
-const isStudentList = ArrayOf(isStudent);
+const isStudentList = ArrayOf([isStudents]);
 
 export const fetchStudents = async (id: string): Promise<Student[]> => {
 	// Remember to treat external data as unknown

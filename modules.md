@@ -2,7 +2,7 @@
 
 ## Table of contents
 
-### Type aliases
+### Type Aliases
 
 - [Guard](modules.md#guard)
 - [Maybe](modules.md#maybe)
@@ -10,7 +10,7 @@
 - [OptionalGuard](modules.md#optionalguard)
 - [TypeOfGuard](modules.md#typeofguard)
 
-### Guard Variables
+### Guard Functions
 
 - [isArray](modules.md#isarray)
 - [isBoolean](modules.md#isboolean)
@@ -37,7 +37,7 @@
 - [RecordOf](modules.md#recordof)
 - [TupleOf](modules.md#tupleof)
 
-## Type aliases
+## Type Aliases
 
 ### Guard
 
@@ -159,18 +159,29 @@ ___
 
 [types.ts:11](src/types.ts#L11)
 
-## Guard Variables
+## Guard Functions
 
 ### isArray
 
-• `Const` **isArray**: [`Guard`](modules.md#guard)<`any`[] \| readonly `any`[]\>
+▸ **isArray**(`value`): value is any[] \| readonly any[]
 
-**`returns`** `true` if the value is an array
+**`Example`**
 
-**`example`**
 ```typescript
   if(isArray(value)) return value.map((e) =>({ e }));
 ```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `unknown` |
+
+#### Returns
+
+value is any[] \| readonly any[]
+
+`true` if the value is an array
 
 #### Defined in
 
@@ -180,14 +191,25 @@ ___
 
 ### isBoolean
 
-• `Const` **isBoolean**: [`Guard`](modules.md#guard)<`boolean`\>
+▸ **isBoolean**(`value`): value is boolean
 
-**`returns`** `true` if `typeof value` is "boolean"
+**`Example`**
 
-**`example`**
 ```typescript
   if(isBoolean(value)) return !value;
 ```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `unknown` |
+
+#### Returns
+
+value is boolean
+
+`true` if `typeof value` is "boolean"
 
 #### Defined in
 
@@ -197,15 +219,26 @@ ___
 
 ### isDefined
 
-• `Const` **isDefined**: [`Guard`](modules.md#guard)<{} \| ``null``\>
+▸ **isDefined**(`value`): value is null \| Object
 
-**`returns`** `true` if the value is defined
+**`Example`**
 
-**`example`**
 ```typescript
   const value: string | undefined = record.get("something");
   if(isDefined(value)) return [value];
 ```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `unknown` |
+
+#### Returns
+
+value is null \| Object
+
+`true` if the value is defined
 
 #### Defined in
 
@@ -215,14 +248,25 @@ ___
 
 ### isNull
 
-• `Const` **isNull**: [`Guard`](modules.md#guard)<``null``\>
+▸ **isNull**(`value`): value is null
 
-**`returns`** `true` if value is `null`
+**`Example`**
 
-**`example`**
 ```typescript
   if(isNull(value)) return;
 ```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `unknown` |
+
+#### Returns
+
+value is null
+
+`true` if value is `null`
 
 #### Defined in
 
@@ -232,14 +276,25 @@ ___
 
 ### isNumber
 
-• `Const` **isNumber**: [`Guard`](modules.md#guard)<`number`\>
+▸ **isNumber**(`value`): value is number
 
-**`returns`** `true` if `typeof value` is "number"
+**`Example`**
 
-**`example`**
 ```typescript
   if(isNumber(value)) return value + 10;
 ```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `unknown` |
+
+#### Returns
+
+value is number
+
+`true` if `typeof value` is "number"
 
 #### Defined in
 
@@ -249,14 +304,25 @@ ___
 
 ### isObject
 
-• `Const` **isObject**: [`Guard`](modules.md#guard)<{ [K in any]?: unknown}\>
+▸ **isObject**(`value`): value is Object
 
-**`returns`** `true` if value is **strictly** an instance of **`Object`**
+**`Example`**
 
-**`example`**
 ```typescript
   if(isObject(values)) return { ...values, completed:true };
 ```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `unknown` |
+
+#### Returns
+
+value is Object
+
+`true` if value is **strictly** an instance of **`Object`**
 
 #### Defined in
 
@@ -266,15 +332,26 @@ ___
 
 ### isPresent
 
-• `Const` **isPresent**: [`Guard`](modules.md#guard)<`Object`\>
+▸ **isPresent**(`value`): value is Object
 
-**`returns`** `true` if the value is defined and has a value, AKA is not null
+**`Example`**
 
-**`example`**
 ```typescript
   const value: string | null = localStorage.getItem("something");
   if(isPresent(value)) return [value];
 ```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `unknown` |
+
+#### Returns
+
+value is Object
+
+`true` if the value is defined and has a value, AKA is not null
 
 #### Defined in
 
@@ -284,31 +361,46 @@ ___
 
 ### isString
 
-• `Const` **isString**: [`Guard`](modules.md#guard)<`string`\>
+▸ **isString**(`value`): value is string
 
-**`returns`** `true` if `typeof value` is "string"
+**`Example`**
 
-**`example`**
 ```typescript
   if(isString(value)) return `${value} - ready`;
 ```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `unknown` |
+
+#### Returns
+
+value is string
+
+`true` if `typeof value` is "string"
 
 #### Defined in
 
 [is-string.ts:11](src/is-string.ts#L11)
 
+___
+
 ## Guard Factory Functions
 
 ### InstanceOf
 
-▸ `Const` **InstanceOf**<`T`, `C`\>(`constructors`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **InstanceOf**<`T`, `C`\>(`constructors`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
 
-**`example`**
+**`Example`**
+
 ```typescript
   const isDate = InstanceOf([Date]);
 ```
 
-**`example`**
+**`Example`**
+
 ```typescript
   const isBytes = InstanceOf([Buffer, Uint8Array]);
 ```
@@ -318,7 +410,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `T` | extends `any` |
-| `C` | extends `Constructor`<`any`\>[]`ConstructorsFromType`<`T`\> |
+| `C` | extends `Constructor`<`any`\>[] = `ConstructorsFromType`<`T`\> |
 
 #### Parameters
 
@@ -340,9 +432,10 @@ ___
 
 ### ValueOf
 
-▸ `Const` **ValueOf**<`T`\>(`expectedValues`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **ValueOf**<`T`\>(`expectedValues`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
 
-**`example`**
+**`Example`**
+
 ```typescript
   const isCurrency = ValueOf(["USD", "EUR", "GBP"] as const);
 ```
@@ -375,21 +468,26 @@ ___
 
 ### ArrayOf
 
-▸ `Const` **ArrayOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **ArrayOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
 
-**`throws`** {RecursiveError} When calling the `self` guard in the callback
+**`Throws`**
 
-**`example`**
+When calling the `self` guard in the callback
+
+**`Example`**
+
 ```typescript
   const isStringArray = ArrayOf([isString]);
 ```
 
-**`example`**
+**`Example`**
+
 ```typescript
   const isStringOrNumberArray = ArrayOf([isString, isNumber]);
 ```
 
-**`example`**
+**`Example`**
+
 ```typescript
   type FullNames = (string | FullNames)[];
   const isFullNames = ArrayOf<FullNames>((self) => [isString, self]);
@@ -400,7 +498,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `T` | extends `any`[] |
-| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[]`GuardsFromType`<`T`\> |
+| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[] = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
@@ -422,9 +520,10 @@ ___
 
 ### MaybeOf
 
-▸ `Const` **MaybeOf**<`T`, `V`\>(`guard`): [`Guard`](modules.md#guard)<`undefined` \| `T`, `undefined` \| `V`\>
+▸ **MaybeOf**<`T`, `V`\>(`guard`): [`Guard`](modules.md#guard)<`undefined` \| `T`, `undefined` \| `V`\>
 
-**`example`**
+**`Example`**
+
 ```typescript
   const isMaybeAge = MaybeOf(isNumber);
   const isPersonTuple: Guard<[string, number | undefined]> = TupleOf([isString, isMaybeAge]);
@@ -457,9 +556,10 @@ ___
 
 ### NullableOf
 
-▸ `Const` **NullableOf**<`T`, `V`\>(`guard`): [`Guard`](modules.md#guard)<``null`` \| `T`, ``null`` \| `V`\>
+▸ **NullableOf**<`T`, `V`\>(`guard`): [`Guard`](modules.md#guard)<``null`` \| `T`, ``null`` \| `V`\>
 
-**`example`**
+**`Example`**
+
 ```typescript
   const isNullableAge = NullableOf(isNumber);
   const isPersonTuple: Guard<[string, number | null]> = TupleOf([isString, isNullableAge]);
@@ -492,11 +592,14 @@ ___
 
 ### ObjectOf
 
-▸ `Const` **ObjectOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **ObjectOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
 
-**`throws`** {RecursiveError} When calling the `self` guard in the callback
+**`Throws`**
 
-**`example`**
+When calling the `self` guard in the callback
+
+**`Example`**
+
 ```typescript
   const isPerson = ObjectOf({
     firstName: isString,
@@ -505,7 +608,8 @@ ___
   });
 ```
 
-**`example`**
+**`Example`**
+
 ```typescript
   type Person = {
     firstName: string;
@@ -527,7 +631,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `T` | extends `TypeFromGuards`<`G`\> |
-| `G` | extends `Object``GuardsFromType`<`T`\> |
+| `G` | extends `Object` = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
@@ -549,16 +653,20 @@ ___
 
 ### OneOf
 
-▸ `Const` **OneOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **OneOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
 
-**`throws`** {RecursiveError} When calling the `self` guard in the callback
+**`Throws`**
 
-**`example`**
+When calling the `self` guard in the callback
+
+**`Example`**
+
 ```typescript
       const isGrade = OneOf([isString, isNumber]);
 ```
 
-**`example`**
+**`Example`**
+
 ```typescript
     type Grades = string | number | { [k: string]: Grades };
     const isGrades = OneOf<Grades>((self) => [
@@ -573,7 +681,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `T` | extends `any` |
-| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[]`GuardsFromType`<`T`\> |
+| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[] = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
@@ -595,12 +703,14 @@ ___
 
 ### OptionalOf
 
-▸ `Const` **OptionalOf**<`T`, `V`\>(`guard`): [`OptionalGuard`](modules.md#optionalguard)<`T`, `V`\>
+▸ **OptionalOf**<`T`, `V`\>(`guard`): [`OptionalGuard`](modules.md#optionalguard)<`T`, `V`\>
 
-**`description`**
+**`Description`**
+
 This returns a contextual guard that allows keyed High Order Guards, I.E: TupleOf, that the key might not be present.
 
-**`example`**
+**`Example`**
+
 ```typescript
   const isOptionalAge = OptionalOf(isNumber);
   const isPersonTuple: Guard<[string, number?]> = TupleOf([isString, isOptionalAge]);
@@ -633,16 +743,20 @@ ___
 
 ### RecordOf
 
-▸ `Const` **RecordOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **RecordOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
 
-**`throws`** {RecursiveError} When calling the `self` guard in the callback
+**`Throws`**
 
-**`example`**
+When calling the `self` guard in the callback
+
+**`Example`**
+
 ```typescript
     const isGrades = RecordOf([isNumber]);
 ```
 
-**`example`**
+**`Example`**
+
 ```typescript
   type Grades = { [name: string]: number | Grades };
   const isGrades = RecordOf<Grades>((self) => [isNumber, self]);
@@ -653,7 +767,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `T` | extends `TypeFromGuards`<`G`\> |
-| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[]`GuardsFromType`<`T`\> |
+| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[] = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
@@ -675,16 +789,20 @@ ___
 
 ### TupleOf
 
-▸ `Const` **TupleOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **TupleOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
 
-**`throws`** {RecursiveError} When calling the `self` guard in the callback
+**`Throws`**
 
-**`example`**
+When calling the `self` guard in the callback
+
+**`Example`**
+
 ```typescript
   const isPersonTuple = TupleOf([isString, isNumber]);
 ```
 
-**`example`**
+**`Example`**
+
 ```typescript
   type Person = [string, number, Person | null];
   const isPersonTuple = TupleOf<Person>((self) => [
@@ -699,7 +817,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `T` | extends [`any`] |
-| `G` | extends [[`Guard`](modules.md#guard)<`any`, `unknown`\>, ...Guard<any, unknown\>[]]`GuardsFromType`<`T`\> |
+| `G` | extends [[`Guard`](modules.md#guard)<`any`, `unknown`\>, ...Guard<any, unknown\>[]] = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
