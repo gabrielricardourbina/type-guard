@@ -3,7 +3,7 @@ import { testGuard } from "./tools";
 import { ValueOf } from "../src";
 
 describe('Currency: "USD" | "EUR" | "GBP" ', () => {
-  const isCurrency = ValueOf(["USD", "EUR", "GBP"] as const);
+  const isCurrency = ValueOf(["USD", "EUR", "GBP"]);
 
   testGuard<Guard<"USD" | "EUR" | "GBP">>(
     '"USD" | "EUR" | "GBP"'

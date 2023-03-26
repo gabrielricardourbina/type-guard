@@ -5,11 +5,11 @@ import type { Guard } from "./types";
  * @return a Guard that checks if a value is **identical** to one of the values passed
  * @example
  * ```typescript
- *   const isCurrency = ValueOf(["USD", "EUR", "GBP"] as const);
+ *   const isCurrency = ValueOf(["USD", "EUR", "GBP"]);
  * ```
  */
-const ValueOf = <T>(expectedValues: readonly T[] | T[]): Guard<T> => {
-	return (value: unknown): value is T => {
+const ValueOf = <const G extends readonly any[] | any[]>(expectedValues: G): Guard<G[number]> => {
+	return (value: unknown): value is G[number] => {
 		return expectedValues.some(expected => value === expected);
 	};
 };
