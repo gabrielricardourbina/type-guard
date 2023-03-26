@@ -1,4 +1,4 @@
-# @gabrielurbina/type-guard - v0.1.14
+# @gabrielurbina/type-guard - v0.1.15
 
 ## Table of contents
 
@@ -391,7 +391,7 @@ ___
 
 ### InstanceOf
 
-▸ **InstanceOf**<`T`, `C`\>(`constructors`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **InstanceOf**<`T`, `C`\>(`constructors`): [`Guard`](modules.md#guard)<`T`\>
 
 **`Example`**
 
@@ -420,7 +420,7 @@ ___
 
 #### Returns
 
-[`Guard`](modules.md#guard)<`T`, `unknown`\>
+[`Guard`](modules.md#guard)<`T`\>
 
 a Guard that checks if a value is instance of one of the constructor passed
 
@@ -432,29 +432,29 @@ ___
 
 ### ValueOf
 
-▸ **ValueOf**<`T`\>(`expectedValues`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **ValueOf**<`G`\>(`expectedValues`): [`Guard`](modules.md#guard)<`G`[`number`]\>
 
 **`Example`**
 
 ```typescript
-  const isCurrency = ValueOf(["USD", "EUR", "GBP"] as const);
+  const isCurrency = ValueOf(["USD", "EUR", "GBP"]);
 ```
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `T` |
+| Name | Type |
+| :------ | :------ |
+| `G` | extends `any`[] \| readonly `any`[] |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expectedValues` | readonly `T`[] \| `T`[] |
+| `expectedValues` | `G` |
 
 #### Returns
 
-[`Guard`](modules.md#guard)<`T`, `unknown`\>
+[`Guard`](modules.md#guard)<`G`[`number`]\>
 
 a Guard that checks if a value is **identical** to one of the values passed
 
@@ -468,7 +468,7 @@ ___
 
 ### ArrayOf
 
-▸ **ArrayOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **ArrayOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`\>
 
 **`Throws`**
 
@@ -498,17 +498,17 @@ When calling the `self` guard in the callback
 | Name | Type |
 | :------ | :------ |
 | `T` | extends `any`[] |
-| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[] = `GuardsFromType`<`T`\> |
+| `G` | extends [`Guard`](modules.md#guard)<`any`\>[] = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`, `unknown`\>) => `G` |
+| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `G` |
 
 #### Returns
 
-[`Guard`](modules.md#guard)<`T`, `unknown`\>
+[`Guard`](modules.md#guard)<`T`\>
 
 a `Guard` that checks if every element of an array is one of the guards passed
 
@@ -592,7 +592,7 @@ ___
 
 ### ObjectOf
 
-▸ **ObjectOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **ObjectOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`\>
 
 **`Throws`**
 
@@ -637,11 +637,11 @@ When calling the `self` guard in the callback
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`, `unknown`\>) => `G` |
+| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `G` |
 
 #### Returns
 
-[`Guard`](modules.md#guard)<`T`, `unknown`\>
+[`Guard`](modules.md#guard)<`T`\>
 
 a `Guard` that checks if the value respect the structure described by the guard object passed
 
@@ -653,7 +653,7 @@ ___
 
 ### OneOf
 
-▸ **OneOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **OneOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`\>
 
 **`Throws`**
 
@@ -681,17 +681,17 @@ When calling the `self` guard in the callback
 | Name | Type |
 | :------ | :------ |
 | `T` | extends `any` |
-| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[] = `GuardsFromType`<`T`\> |
+| `G` | extends [`Guard`](modules.md#guard)<`any`\>[] = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`, `unknown`\>) => `G` |
+| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `G` |
 
 #### Returns
 
-[`Guard`](modules.md#guard)<`T`, `unknown`\>
+[`Guard`](modules.md#guard)<`T`\>
 
 a `Guard` that checks if the value is of one of the passed guards types
 
@@ -743,7 +743,7 @@ ___
 
 ### RecordOf
 
-▸ **RecordOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **RecordOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`\>
 
 **`Throws`**
 
@@ -767,17 +767,17 @@ When calling the `self` guard in the callback
 | Name | Type |
 | :------ | :------ |
 | `T` | extends `TypeFromGuards`<`G`\> |
-| `G` | extends [`Guard`](modules.md#guard)<`any`, `unknown`\>[] = `GuardsFromType`<`T`\> |
+| `G` | extends [`Guard`](modules.md#guard)<`any`\>[] = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`, `unknown`\>) => `G` |
+| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `G` |
 
 #### Returns
 
-[`Guard`](modules.md#guard)<`T`, `unknown`\>
+[`Guard`](modules.md#guard)<`T`\>
 
 a `Guard` that checks if the values of the object passed respect the types of the guards passed
 
@@ -789,7 +789,7 @@ ___
 
 ### TupleOf
 
-▸ **TupleOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`, `unknown`\>
+▸ **TupleOf**<`T`, `G`\>(`guards`): [`Guard`](modules.md#guard)<`T`\>
 
 **`Throws`**
 
@@ -817,17 +817,17 @@ When calling the `self` guard in the callback
 | Name | Type |
 | :------ | :------ |
 | `T` | extends [`any`] |
-| `G` | extends [[`Guard`](modules.md#guard)<`any`, `unknown`\>, ...Guard<any, unknown\>[]] = `GuardsFromType`<`T`\> |
+| `G` | extends [[`Guard`](modules.md#guard)<`any`\>, ...Guard<any\>[]] = `GuardsFromType`<`T`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `OptionalRequiredGuards`<`G`\> \| (`self`: [`Guard`](modules.md#guard)<`T`, `unknown`\>) => `OptionalRequiredGuards`<`G`\> |
+| `guards` | `OptionalRequiredGuards`<`G`\> \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `OptionalRequiredGuards`<`G`\> |
 
 #### Returns
 
-[`Guard`](modules.md#guard)<`T`, `unknown`\>
+[`Guard`](modules.md#guard)<`T`\>
 
 a `Guard` that checks if the values of the tuple passed respect the types of the guards passed
 
