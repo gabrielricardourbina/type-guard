@@ -1,6 +1,6 @@
 import type { Guard } from "../src/";
 import { testGuard } from "./tools";
-import { InstanceOf} from "../src";
+import { InstanceOf } from "../src";
 
 describe("Date", () => {
   const guard = InstanceOf([Date]);

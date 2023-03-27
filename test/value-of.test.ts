@@ -5,9 +5,7 @@ import { ValueOf } from "../src";
 describe('Currency: "USD" | "EUR" | "GBP" ', () => {
   const isCurrency = ValueOf(["USD", "EUR", "GBP"]);
 
-  testGuard<Guard<"USD" | "EUR" | "GBP">>(
-    '"USD" | "EUR" | "GBP"'
-  )(isCurrency)
+  testGuard<Guard<"USD" | "EUR" | "GBP">>('"USD" | "EUR" | "GBP"')(isCurrency)
     .pass("USD")
     .pass("USD")
     .pass("GBP")

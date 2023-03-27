@@ -1,6 +1,6 @@
 import type { Guard } from "../src/";
 import { testGuard } from "./tools";
-import { isNumber, NullableOf} from "../src";
+import { isNumber, NullableOf } from "../src";
 
 describe("number | null", () => {
   const isNullableNumber = NullableOf(isNumber);

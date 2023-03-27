@@ -16,6 +16,7 @@
 		"release": "cd dist && npm publish",
 		"lint": "eslint src/** test/**",
 		"test": "mocha --exit",
+		"prettify": "prettier --write ./src ./test",
 		"test:cover": "nyc mocha --exit"
 	},
 	"repository": {
@@ -40,6 +41,7 @@
 		"@typescript-eslint/parser": "^5.56.0",
 		"chai": "^4.3.7",
 		"eslint": "^8.36.0",
+		"eslint-plugin-prettier": "^4.2.1",
 		"mocha": "^10.2.0",
 		"nyc": "^15.1.0",
 		"prettier": "^2.8.7",

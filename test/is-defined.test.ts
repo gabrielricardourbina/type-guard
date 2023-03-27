@@ -19,16 +19,16 @@ describe("Defined: {} | null", () => {
   if (isDefined(arr)) expectExactType<any[]>()(arr);
   if (isDefined(obj)) expectExactType<Record<string, number>>()(obj);
 
-    testGuard<Guard<{}| null>>("{} | null")(isDefined)
-      .pass(["John Doe", "Oliver King", "Pedro Perez"])
-      .pass([12, "Oliver King", true])
-      .pass([])
-      .pass("John Doe")
-      .pass({ name: "John Doe", age: 18 })
-      .pass(null)
-      .pass(10)
-      .pass(true)
-      .pass(false)
-      .pass(() => {})
-      .fail(undefined);
+  testGuard<Guard<{} | null>>("{} | null")(isDefined)
+    .pass(["John Doe", "Oliver King", "Pedro Perez"])
+    .pass([12, "Oliver King", true])
+    .pass([])
+    .pass("John Doe")
+    .pass({ name: "John Doe", age: 18 })
+    .pass(null)
+    .pass(10)
+    .pass(true)
+    .pass(false)
+    .pass(() => {})
+    .fail(undefined);
 });

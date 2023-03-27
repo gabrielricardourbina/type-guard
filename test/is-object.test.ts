@@ -3,9 +3,7 @@ import { testGuard } from "./tools";
 import { isObject } from "../src";
 
 describe("object {}", () => {
-  testGuard<Guard<{ [K in any]?: unknown }>>("object {}")(
-    isObject
-  )
+  testGuard<Guard<{ [K in any]?: unknown }>>("object {}")(isObject)
     .pass({})
     .pass({ name: "Jon Snow" })
     .pass({ amount: 123 })

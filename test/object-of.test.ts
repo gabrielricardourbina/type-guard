@@ -2,7 +2,15 @@ import type { Guard } from "../src/";
 import { expect } from "chai";
 import { testGuard } from "./tools";
 import RecursiveError from "../src/recursive-error";
-import { ObjectOf, OptionalOf, isString, isNumber, isNull, OneOf, ValueOf } from "../src";
+import {
+  ObjectOf,
+  OptionalOf,
+  isString,
+  isNumber,
+  isNull,
+  OneOf,
+  ValueOf,
+} from "../src";
 
 const ignoreLiteral = <T>(v: T) => v;
 

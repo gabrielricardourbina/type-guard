@@ -19,4 +19,10 @@ export { default as OptionalOf } from "./optional-of";
 export { default as NullableOf } from "./nullable-of";
 export { default as MaybeOf } from "./maybe-of";
 
-export type { Guard, TypeOfGuard, OptionalGuard, Maybe, Nullable } from "./types";
+export type {
+  Guard,
+  TypeOfGuard,
+  OptionalGuard,
+  Maybe,
+  Nullable,
+} from "./types";

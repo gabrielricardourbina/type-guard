@@ -1,6 +1,8 @@
 module.exports = {
 	parser: "@typescript-eslint/parser",
 
+	plugins: ["prettier"],
+
 	parserOptions: {
 		ecmaVersion: 2020,
 		sourceType: "module",
@@ -11,6 +13,7 @@ module.exports = {
 	],
 
 	rules: {
+		"prettier/prettier": "error",
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/ban-types": "warn",

@@ -8,11 +8,10 @@ import type { Guard } from "./types";
  *   if(isObject(values)) return { ...values, completed:true };
  * ```
  */
-const isObject = ((
-  value: unknown
-): value is { [K in any]?: unknown } => {
+const isObject = ((value: unknown): value is { [K in any]?: unknown } => {
   return (
-    value instanceof Object && Object === Object.getPrototypeOf(value).constructor
+    value instanceof Object &&
+    Object === Object.getPrototypeOf(value).constructor
   );
 }) satisfies Guard<{ [K in any]?: unknown }>;
 
