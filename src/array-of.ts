@@ -1,6 +1,5 @@
-import type { Guard } from "./types";
+import type { Guard, NonCallable } from "./types";
 import isArray from "./is-array";
-import RecursiveError from "./recursive-error";
 
 type TypeFromGuards<G extends Guard<any>[]> = G extends Guard<infer P>[]
   ? P[]
@@ -12,7 +11,7 @@ type GuardsFromType<T extends any[]> = Guard<
 /**
  * @category High Order Guard
  * @return a `Guard` that checks if every element of an array is one of the guards passed
- * @throws {RecursiveError} When calling the `self` guard in the callback
+ * @throws {ReferenceError} When calling the `self` guard in the callback
  * @example
  * ```typescript
  *   const isStringArray = ArrayOf([isString]);
@@ -31,7 +30,7 @@ const ArrayOf = <
   T extends TypeFromGuards<G>,
   G extends Guard<any>[] = GuardsFromType<T>
 >(
-  guards: G | ((self: Guard<T>) => G)
+  guards: G | ((self: NonCallable<Guard<T>>) => G)
 ): Guard<T> => {
   const isArrayOf = (value: unknown): value is T => {
     return (
@@ -40,9 +39,10 @@ const ArrayOf = <
     );
   };
 
-  const generatedGuards = RecursiveError.assert((forbidCall) =>
-    typeof guards === "function" ? guards(forbidCall(isArrayOf)) : guards
-  );
+  const generatedGuards =
+    typeof guards === "function"
+      ? (guards as (self: Guard<T>) => G)(isArrayOf)
+      : guards;
 
   return isArrayOf;
 };

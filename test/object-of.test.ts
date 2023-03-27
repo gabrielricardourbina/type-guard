@@ -1,7 +1,5 @@
 import type { Guard } from "../src/";
-import { expect } from "chai";
 import { testGuard } from "./tools";
-import RecursiveError from "../src/recursive-error";
 import {
   ObjectOf,
   OptionalOf,
@@ -14,16 +12,6 @@ import {
 
 const ignoreLiteral = <T>(v: T) => v;
 
-it("ObjectOf: throws explicit error when trying to call the 'self' guard in recursive mode", () => {
-  expect(() =>
-    ObjectOf((self) => {
-      self(undefined);
-      return {
-        thing: OneOf([self, isNull]),
-      };
-    })
-  ).to.throw(RecursiveError);
-});
 describe("Person: { firstName: string; lastName: string; age: number }", () => {
   type Person = { firstName: string; lastName: string; age: number };
   const isPerson = ObjectOf({

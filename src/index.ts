@@ -25,4 +25,5 @@ export type {
   OptionalGuard,
   Maybe,
   Nullable,
+  NonCallable,
 } from "./types";

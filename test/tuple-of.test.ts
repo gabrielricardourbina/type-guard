@@ -1,7 +1,5 @@
 import type { Guard } from "../src/";
-import { expect } from "chai";
 import { testGuard } from "./tools";
-import RecursiveError from "../src/recursive-error";
 import {
   isBoolean,
   isNumber,
@@ -11,27 +9,6 @@ import {
   OneOf,
   OptionalOf,
 } from "../src";
-
-it("TupleOf: throws RecursiveError when trying to call the 'self' guard in recursive mode", () => {
-  expect(() => {
-    type L = [L, null];
-    TupleOf<L>((self) => {
-      self(undefined);
-      return [self, isNull];
-    });
-  }).to.throw(RecursiveError);
-});
-
-it("TupleOf: throws TypeError when placing a required guard after an optional one", () => {
-  expect(() => {
-    const optionalString = OptionalOf(isString);
-    TupleOf([
-      optionalString,
-      //@ts-expect-error This is expected to fail, as part of the test
-      isNumber,
-    ]);
-  }).to.throw(TypeError, "A required guard cannot follow an optional guard");
-});
 
 describe("Person: [string, number]", () => {
   const isPersonTuple = TupleOf([isString, isNumber]);

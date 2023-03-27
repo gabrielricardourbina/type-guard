@@ -1,6 +1,5 @@
-import type { Guard, OptionalGuard, TypeOfGuard } from "./types";
+import type { Guard, OptionalGuard, TypeOfGuard, NonCallable } from "./types";
 import isArray from "./is-array";
-import RecursiveError from "./recursive-error";
 
 type TailGuards<H extends Guard<any>[]> = H extends [infer P, ...infer L]
   ? P extends OptionalGuard<any>
@@ -49,7 +48,7 @@ type GuardsFromType<T extends [any?, ...any]> = T extends [infer P, ...infer H]
 /**
  * @category High Order Guard
  * @return a `Guard` that checks if the values of the tuple passed respect the types of the guards passed
- * @throws {RecursiveError} When calling the `self` guard in the callback
+ * @throws {ReferenceError} When calling the `self` guard in the callback
  * @example
  * ```typescript
  *   const isPersonTuple = TupleOf([isString, isNumber]);
@@ -70,7 +69,7 @@ const TupleOf = <
 >(
   guards:
     | OptionalRequiredGuards<G>
-    | ((self: Guard<T>) => OptionalRequiredGuards<G>)
+    | ((self: NonCallable<Guard<T>>) => OptionalRequiredGuards<G>)
 ): Guard<T> => {
   const isTupleOf = (tuple: unknown): tuple is T => {
     return (
@@ -83,21 +82,10 @@ const TupleOf = <
     );
   };
 
-  const generatedGuards = RecursiveError.assert((forbidCall) =>
-    typeof guards === "function" ? guards(forbidCall(isTupleOf)) : guards
-  );
-
-  const optionalBoundary = generatedGuards.reduceRight(
-    (i: number, guard, j) => (guard.optional ? j : i),
-    generatedGuards.length
-  );
-
-  const hasRequiredAfterBoundary = generatedGuards.some(({ optional }, j) =>
-    optional ? j < optionalBoundary : j >= optionalBoundary
-  );
-
-  if (hasRequiredAfterBoundary)
-    throw new TypeError("A required guard cannot follow an optional guard");
+  const generatedGuards =
+    typeof guards === "function"
+      ? (guards as (self: Guard<T>) => OptionalRequiredGuards<G>)(isTupleOf)
+      : guards;
 
   return isTupleOf;
 };

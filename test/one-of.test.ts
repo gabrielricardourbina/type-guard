@@ -1,17 +1,6 @@
 import type { Guard } from "../src/";
-import { expect } from "chai";
 import { testGuard } from "./tools";
-import RecursiveError from "../src/recursive-error";
-import { OneOf, isString, isNumber, isNull, RecordOf } from "../src";
-
-it("OneOf: throws explicit error when trying to call the 'self' guard in recursive mode", () => {
-  expect(() =>
-    OneOf((self) => {
-      self(undefined);
-      return [self, isNull];
-    })
-  ).to.throw(RecursiveError);
-});
+import { OneOf, isString, isNumber, RecordOf } from "../src";
 
 describe("Grade: string | number", () => {
   const isGrade = OneOf([isString, isNumber]);

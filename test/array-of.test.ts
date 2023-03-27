@@ -1,17 +1,6 @@
 import type { Guard } from "../src/";
-import { expect } from "chai";
 import { testGuard } from "./tools";
-import RecursiveError from "../src/recursive-error";
-import { ArrayOf, isString, isNumber, isNull } from "../src";
-
-it("ArrayOf: throws explicit error when trying to call the 'self' guard in recursive mode", () => {
-  expect(() =>
-    ArrayOf((self) => {
-      self(undefined);
-      return [self, isNull];
-    })
-  ).to.throw(RecursiveError);
-});
+import { ArrayOf, isString, isNumber } from "../src";
 
 describe("Names: string[]", () => {
   const guard = ArrayOf([isString]);

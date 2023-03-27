@@ -12,5 +12,9 @@ export type TypeOfGuard<G extends Guard<any>> = G extends Guard<infer P>
   ? P
   : never;
 
+export type NonCallable<F extends (...args: any) => any> = ((
+  ...args: Parameters<F>
+) => never) &
+  F;
 export type Maybe<T> = T | undefined;
 export type Nullable<T> = T | null;

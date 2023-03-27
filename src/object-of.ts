@@ -1,6 +1,5 @@
-import type { Guard, OptionalGuard, TypeOfGuard } from "./types";
+import type { Guard, OptionalGuard, TypeOfGuard, NonCallable } from "./types";
 import isObject from "./is-object";
-import RecursiveError from "./recursive-error";
 
 type TypeFromGuards<G extends { [K in any]: Guard<any> }> = Merge<
   RequiredPortion<G>,
@@ -34,7 +33,7 @@ type GuardsFromType<T extends { [key in keyof T]: any }> = {
 /**
  * @category High Order Guard
  * @return a `Guard` that checks if the value respect the structure described by the guard object passed
- * @throws {RecursiveError} When calling the `self` guard in the callback
+ * @throws {ReferenceError} When calling the `self` guard in the callback
  * @example
  * ```typescript
  *   const isPerson = ObjectOf({
@@ -64,7 +63,7 @@ const ObjectOf = <
   T extends TypeFromGuards<G>,
   G extends { [K in any]: Guard<any> } = GuardsFromType<T>
 >(
-  guards: G | ((self: Guard<T>) => G)
+  guards: G | ((self: NonCallable<Guard<T>>) => G)
 ): Guard<T> => {
   const isObjectOf = (obj: unknown): obj is T =>
     isObject(obj) &&
@@ -74,9 +73,10 @@ const ObjectOf = <
         : key in obj && guard(obj[key])
     );
 
-  const generatedGuards = RecursiveError.assert((forbidCall) =>
-    typeof guards === "function" ? guards(forbidCall(isObjectOf)) : guards
-  );
+  const generatedGuards =
+    typeof guards === "function"
+      ? (guards as (self: Guard<T>) => G)(isObjectOf)
+      : guards;
 
   return isObjectOf;
 };
