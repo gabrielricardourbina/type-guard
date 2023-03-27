@@ -1,4 +1,4 @@
-# @gabrielurbina/type-guard - v0.1.15
+# @gabrielurbina/type-guard - v0.1.16
 
 ## Table of contents
 
@@ -6,6 +6,7 @@
 
 - [Guard](modules.md#guard)
 - [Maybe](modules.md#maybe)
+- [NonCallable](modules.md#noncallable)
 - [Nullable](modules.md#nullable)
 - [OptionalGuard](modules.md#optionalguard)
 - [TypeOfGuard](modules.md#typeofguard)
@@ -88,6 +89,22 @@ ___
 
 #### Defined in
 
+[types.ts:19](src/types.ts#L19)
+
+___
+
+### NonCallable
+
+Ƭ **NonCallable**<`F`\>: (...`args`: `Parameters`<`F`\>) => `never` & `F`
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `F` | extends (...`args`: `any`) => `any` |
+
+#### Defined in
+
 [types.ts:15](src/types.ts#L15)
 
 ___
@@ -104,7 +121,7 @@ ___
 
 #### Defined in
 
-[types.ts:16](src/types.ts#L16)
+[types.ts:20](src/types.ts#L20)
 
 ___
 
@@ -504,7 +521,7 @@ When calling the `self` guard in the callback
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `G` |
+| `guards` | `G` \| (`self`: [`NonCallable`](modules.md#noncallable)<[`Guard`](modules.md#guard)<`T`\>\>) => `G` |
 
 #### Returns
 
@@ -514,7 +531,7 @@ a `Guard` that checks if every element of an array is one of the guards passed
 
 #### Defined in
 
-[array-of.ts:30](src/array-of.ts#L30)
+[array-of.ts:29](src/array-of.ts#L29)
 
 ___
 
@@ -637,7 +654,7 @@ When calling the `self` guard in the callback
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `G` |
+| `guards` | `G` \| (`self`: [`NonCallable`](modules.md#noncallable)<[`Guard`](modules.md#guard)<`T`\>\>) => `G` |
 
 #### Returns
 
@@ -647,7 +664,7 @@ a `Guard` that checks if the value respect the structure described by the guard 
 
 #### Defined in
 
-[object-of.ts:63](src/object-of.ts#L63)
+[object-of.ts:62](src/object-of.ts#L62)
 
 ___
 
@@ -687,7 +704,7 @@ When calling the `self` guard in the callback
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `G` |
+| `guards` | `G` \| (`self`: [`NonCallable`](modules.md#noncallable)<[`Guard`](modules.md#guard)<`T`\>\>) => `G` |
 
 #### Returns
 
@@ -697,7 +714,7 @@ a `Guard` that checks if the value is of one of the passed guards types
 
 #### Defined in
 
-[one-of.ts:26](src/one-of.ts#L26)
+[one-of.ts:25](src/one-of.ts#L25)
 
 ___
 
@@ -773,7 +790,7 @@ When calling the `self` guard in the callback
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `G` \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `G` |
+| `guards` | `G` \| (`self`: [`NonCallable`](modules.md#noncallable)<[`Guard`](modules.md#guard)<`T`\>\>) => `G` |
 
 #### Returns
 
@@ -783,7 +800,7 @@ a `Guard` that checks if the values of the object passed respect the types of th
 
 #### Defined in
 
-[record-of.ts:23](src/record-of.ts#L23)
+[record-of.ts:22](src/record-of.ts#L22)
 
 ___
 
@@ -823,7 +840,7 @@ When calling the `self` guard in the callback
 
 | Name | Type |
 | :------ | :------ |
-| `guards` | `OptionalRequiredGuards`<`G`\> \| (`self`: [`Guard`](modules.md#guard)<`T`\>) => `OptionalRequiredGuards`<`G`\> |
+| `guards` | `OptionalRequiredGuards`<`G`\> \| (`self`: [`NonCallable`](modules.md#noncallable)<[`Guard`](modules.md#guard)<`T`\>\>) => `OptionalRequiredGuards`<`G`\> |
 
 #### Returns
 
@@ -833,4 +850,4 @@ a `Guard` that checks if the values of the tuple passed respect the types of the
 
 #### Defined in
 
-[tuple-of.ts:67](src/tuple-of.ts#L67)
+[tuple-of.ts:66](src/tuple-of.ts#L66)
