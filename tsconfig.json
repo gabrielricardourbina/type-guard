@@ -28,7 +28,7 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
 		"forceConsistentCasingInFileNames": true,
-		"importHelpers": true
+		"importHelpers": false
 	},
 	"include": ["src/**/*.ts", "test/**/*.ts"],
 	"exclude": ["dist/**/*.ts"],
