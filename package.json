@@ -52,5 +52,8 @@
 	},
 	"dependencies": {
 		"tslib": "^2.5.0"
-	}
+	},
+	"typesVersions": {
+    "<5.0": { "dist/index.d.ts": ["dist/index.v4.d.ts"] }
+  }
 }
