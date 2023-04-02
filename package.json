@@ -3,16 +3,17 @@
 	"version": "0.1.18",
 	"description": "Type safety for your IO",
 	"main": "dist/index.js",
+	"module": "dist/index.mjs",
 	"types": "dist/index.d.ts",
 	"publishConfig": {
 		"access": "public"
 	},
 	"scripts": {
-		"prebuild": "rm -rf dist",
-		"build": "tsc --project tsconfig.build.json",
+		"prebuild": "git ls-files ./dist --ignored --exclude-standard --others | xargs rm",
+		"build": "tsc --project tsconfig.build.json && tsc --project tsconfig.build.cjs.json",
+		"postbuild": "node postbuild.mjs",
 		"docgen": "typedoc",
 		"postdocgen": "mv -f docs/modules.md .",
-		"prerelease": "node prerelease.js",
 		"release": "cd dist && npm publish",
 		"lint": "eslint src/** test/**",
 		"test": "mocha --exit",
@@ -45,15 +46,16 @@
 		"mocha": "^10.2.0",
 		"nyc": "^15.1.0",
 		"prettier": "^2.8.7",
+		"semver": "^7.3.8",
 		"ts-node": "^10.9.1",
 		"typedoc": "^0.23.28",
 		"typedoc-plugin-markdown": "^3.14.0",
 		"typescript": "^5.0.2"
 	},
 	"typesVersions": {
-		"<5.0": {
-			"dist/index.d.ts": [
-				"dist/index.v4.d.ts"
+		"<=4.8": {
+			"*": [
+				"dist/types-v4.8/*"
 			]
 		}
 	}

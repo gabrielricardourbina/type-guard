@@ -2,14 +2,13 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"rootDir": "./",
-		"outDir": "./dist",
+		"outDir": "./dist/esm",
 		"incremental": false,
-		"declarationDir":"./dist",
+		"declarationDir":"./dist/types",
 		"declaration": true,
 		"strictNullChecks": true,
-		"moduleResolution": "node",
+		"moduleResolution": "node16",
 		"strict": true,
-		"esModuleInterop": true,
 		"lib": [
 			"es2015",
 			"es2016.array.include",
@@ -17,7 +16,7 @@
 			"dom",
 			"dom.iterable",
 		],
-		"module": "commonjs",
+		"module": "esnext",
 		"removeComments": false,
 		"alwaysStrict": true,
 		"allowUnreachableCode": false,
@@ -27,10 +26,8 @@
 		"noUnusedParameters": false,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
-		"forceConsistentCasingInFileNames": true,
-		"importHelpers": false
+		"forceConsistentCasingInFileNames": true
 	},
 	"include": ["src/**/*.ts", "test/**/*.ts"],
 	"exclude": ["dist/**/*.ts"],
-
 }

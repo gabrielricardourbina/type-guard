@@ -1,7 +1,4 @@
-export * from "./";
-import _ValueOf from "./value-of";
 import type { Guard } from "./types";
-
 /**
  * @category Guard Factory
  * @return a Guard that checks if a value is **identical** to one of the values passed
@@ -11,6 +8,5 @@ import type { Guard } from "./types";
  *   const isCurrency = ValueOf(["USD", "EUR", "GBP"] as const);
  * ```
  */
-export const ValueOf = _ValueOf as <T>(
-  expectedValues: readonly T[] | T[]
-) => Guard<T>;
+declare const ValueOf: <T>(expectedValues: readonly T[] | T[]) => Guard<T>;
+export default ValueOf;
