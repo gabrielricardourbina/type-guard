@@ -1,4 +1,4 @@
-# @gabrielurbina/type-guard - v0.2.0
+# @gabrielurbina/type-guard - v0.2.1
 
 ## Table of contents
 
@@ -664,7 +664,7 @@ a `Guard` that checks if the value respect the structure described by the guard 
 
 #### Defined in
 
-[object-of.ts:62](src/object-of.ts#L62)
+[object-of.ts:67](src/object-of.ts#L67)
 
 ___
 
@@ -850,4 +850,4 @@ a `Guard` that checks if the values of the tuple passed respect the types of the
 
 #### Defined in
 
-[tuple-of.ts:66](src/tuple-of.ts#L66)
+[tuple-of.ts:71](src/tuple-of.ts#L71)
