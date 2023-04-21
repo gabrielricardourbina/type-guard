@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
-import { isNumber, MaybeOf } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { isNumber, MaybeOf } from "../src/index.js";
 
 describe("number | undefined", () => {
   const isMaybeNumber = MaybeOf(isNumber);

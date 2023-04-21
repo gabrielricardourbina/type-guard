@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
-import { isNull } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { isNull } from "../src/index.js";
 
 describe("null", () => {
   testGuard<Guard<null>>("null")(isNull)

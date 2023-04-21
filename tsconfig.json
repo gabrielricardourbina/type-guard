@@ -4,10 +4,10 @@
 		"rootDir": "./",
 		"outDir": "./dist/esm",
 		"incremental": false,
-		"declarationDir":"./dist/types",
+		"declarationDir":"./dist/esm",
 		"declaration": true,
 		"strictNullChecks": true,
-		"moduleResolution": "node16",
+		"moduleResolution": "nodenext",
 		"strict": true,
 		"lib": [
 			"es2015",
@@ -26,6 +26,7 @@
 		"noUnusedParameters": false,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
 		"forceConsistentCasingInFileNames": true
 	},
 	"include": ["src/**/*.ts", "test/**/*.ts"],

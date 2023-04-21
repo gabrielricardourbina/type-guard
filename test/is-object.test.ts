@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
-import { isObject } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { isObject } from "../src/index.js";
 
 describe("object {}", () => {
   testGuard<Guard<{ [K in any]?: unknown }>>("object {}")(isObject)

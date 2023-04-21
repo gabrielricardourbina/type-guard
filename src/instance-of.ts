@@ -1,4 +1,4 @@
-import type { Guard } from "./types";
+import type { Guard } from "./types.js";
 
 type Constructor<T> = new (...args: any[]) => T;
 

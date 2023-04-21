@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
-import { isBoolean } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { isBoolean } from "../src/index.js";
 
 describe("boolean", () => {
   testGuard<Guard<boolean>>("boolean")(isBoolean)

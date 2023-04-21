@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
-import { isNumber, RecordOf } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { isNumber, RecordOf } from "../src/index.js";
 
 describe("Grades: { [name: string]: number }", () => {
   const isGrades = RecordOf([isNumber]);

@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
-import { isArray } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { isArray } from "../src/index.js";
 
 describe("Array of any: any[]", () => {
   testGuard<Guard<any[] | readonly any[]>>("any[]")(isArray)

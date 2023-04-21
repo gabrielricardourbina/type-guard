@@ -1,4 +1,4 @@
-import type { Guard, NonCallable } from "./types";
+import type { Guard, NonCallable } from "./types.js";
 
 type TypeFromGuards<G extends Guard<any>[]> = G extends Guard<infer P>[]
   ? P

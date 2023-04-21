@@ -1,5 +1,10 @@
-import type { Guard, OptionalGuard, TypeOfGuard, NonCallable } from "./types";
-import isObject from "./is-object";
+import type {
+  Guard,
+  OptionalGuard,
+  TypeOfGuard,
+  NonCallable,
+} from "./types.js";
+import isObject from "./is-object.js";
 
 type TypeFromGuards<G extends { [K in any]: Guard<any> }> = Merge<
   RequiredPortion<G>,

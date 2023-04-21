@@ -1,6 +1,6 @@
-import type { Guard } from "../src";
-import { testGuard } from "./tools";
-import { ValueOf } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { ValueOf } from "../src/index.js";
 
 describe('Currency: "USD" | "EUR" | "GBP" ', () => {
   const isCurrency = ValueOf(["USD", "EUR", "GBP"]);

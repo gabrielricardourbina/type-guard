@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard, expectExactType } from "./tools";
-import { isDefined } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard, expectExactType } from "./tools.js";
+import { isDefined } from "../src/index.js";
 
 describe("Defined: {} | null", () => {
   const str: string | undefined = "hola" as any;

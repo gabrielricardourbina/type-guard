@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
-import { ArrayOf, isString, isNumber } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { ArrayOf, isString, isNumber } from "../src/index.js";
 
 describe("Names: string[]", () => {
   const guard = ArrayOf([isString]);

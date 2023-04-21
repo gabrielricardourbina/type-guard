@@ -2,16 +2,16 @@
 	"name": "@gabrielurbina/type-guard",
 	"version": "0.2.0",
 	"description": "Type safety for your IO",
-	"main": "dist/index.js",
-	"module": "dist/index.mjs",
-	"types": "dist/index.d.ts",
+	"type": "module",
+	"main": "dist/esm/index.js",
+	"types": "dist/esm/index.d.ts",
 	"publishConfig": {
 		"access": "public"
 	},
 	"scripts": {
-		"prebuild": "git ls-files ./dist --ignored --exclude-standard --others | xargs rm",
+		"prebuild": "git clean -fdx dist/",
 		"build": "tsc --project tsconfig.build.json && tsc --project tsconfig.build.cjs.json",
-		"postbuild": "node postbuild.mjs",
+		"postbuild": "node postbuild.js",
 		"docgen": "typedoc",
 		"postdocgen": "mv -f docs/modules.md .",
 		"release": "cd dist && npm publish",
@@ -46,17 +46,9 @@
 		"mocha": "^10.2.0",
 		"nyc": "^15.1.0",
 		"prettier": "^2.8.7",
-		"semver": "^7.3.8",
 		"ts-node": "^10.9.1",
 		"typedoc": "^0.23.28",
 		"typedoc-plugin-markdown": "^3.14.0",
 		"typescript": "^5.0.2"
-	},
-	"typesVersions": {
-		"<=4.8": {
-			"*": [
-				"dist/types-v4.8/*"
-			]
-		}
 	}
 }

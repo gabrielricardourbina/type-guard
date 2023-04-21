@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"outDir": "./dist/cjs",
+		"declarationDir":"./dist/cjs",
 		"module": "commonjs",
 		"esModuleInterop": true,
 		"importHelpers": false

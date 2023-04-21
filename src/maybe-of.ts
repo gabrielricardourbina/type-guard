@@ -1,4 +1,4 @@
-import type { Guard } from "./types";
+import type { Guard } from "./types.js";
 
 /**
  * @category High Order Guard

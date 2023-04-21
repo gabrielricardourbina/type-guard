@@ -1,5 +1,5 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
 import {
   isBoolean,
   isNumber,
@@ -8,7 +8,7 @@ import {
   isString,
   OneOf,
   OptionalOf,
-} from "../src";
+} from "../src/index.js";
 
 describe("Person: [string, number]", () => {
   const isPersonTuple = TupleOf([isString, isNumber]);

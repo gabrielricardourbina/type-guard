@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import type { Guard, TypeOfGuard } from "../src";
+import type { Guard, TypeOfGuard } from "../src/index.js";
 
 declare const nonExactType: unique symbol;
 type Exactly<A, B> = {

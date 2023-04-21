@@ -1,4 +1,4 @@
-import type { Guard } from "./types";
+import type { Guard } from "./types.js";
 /**
  * @category Guard Factory
  * @return a Guard that checks if a value is **identical** to one of the values passed

@@ -1,5 +1,5 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
 import {
   ObjectOf,
   OptionalOf,
@@ -8,7 +8,7 @@ import {
   isNull,
   OneOf,
   ValueOf,
-} from "../src";
+} from "../src/index.js";
 
 const ignoreLiteral = <T>(v: T) => v;
 

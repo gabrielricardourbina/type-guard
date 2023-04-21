@@ -1,5 +1,5 @@
-import type { Guard, NonCallable } from "./types";
-import isArray from "./is-array";
+import type { Guard, NonCallable } from "./types.js";
+import isArray from "./is-array.js";
 
 type TypeFromGuards<G extends Guard<any>[]> = G extends Guard<infer P>[]
   ? P[]

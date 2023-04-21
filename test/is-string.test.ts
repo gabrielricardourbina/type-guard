@@ -1,6 +1,6 @@
-import type { Guard } from "../src/";
-import { testGuard } from "./tools";
-import { isString } from "../src";
+import type { Guard } from "../src/index.js";
+import { testGuard } from "./tools.js";
+import { isString } from "../src/index.js";
 
 describe("string", () => {
   testGuard<Guard<string>>("string")(isString)
