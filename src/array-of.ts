@@ -32,11 +32,25 @@ const ArrayOf = <
 >(
   guards: G | ((self: NonCallable<Guard<T>>) => G)
 ): Guard<T> => {
-  const isArrayOf = (value: unknown): value is T => {
-    return (
-      isArray(value) &&
-      value.every((value) => generatedGuards.some((guard) => guard(value)))
-    );
+  const isArrayOf = (arr: unknown): arr is T => {
+    if(!isArray(arr)){
+      return false;
+    }
+    for (let i = 0; i < arr.length; i++) {
+      const value = arr[i];
+      let valuePasses = false;
+      for (let i = 0; i < generatedGuards.length; i++) {
+        const guard = generatedGuards[i]!;
+        if (guard(value)) {
+          valuePasses = true;
+          break;
+        }
+      }
+      if (!valuePasses) {
+        return false;
+      }
+    }
+    return true
   };
 
   const generatedGuards =

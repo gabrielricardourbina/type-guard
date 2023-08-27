@@ -29,7 +29,13 @@ const OneOf = <
   guards: G | ((self: NonCallable<Guard<T>>) => G)
 ): Guard<T> => {
   const isOneOf = (value: unknown): value is T => {
-    return generatedGuards.some((guard) => guard(value));
+    for (let i = 0; i < generatedGuards.length; i++) {
+      const guard = generatedGuards[i]!;
+      if (guard(value)) {
+        return true
+      }
+    }
+    return false;
   };
 
   const generatedGuards =

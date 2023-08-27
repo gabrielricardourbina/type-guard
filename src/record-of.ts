@@ -26,10 +26,28 @@ const RecordOf = <
   guards: G | ((self: NonCallable<Guard<T>>) => G)
 ): Guard<T> => {
   const isRecordOf = (rec: unknown): rec is T => {
-    return (
-      isObject(rec) &&
-      Object.values(rec).every((v) => generatedGuards.some((guard) => guard(v)))
-    );
+    if (!isObject(rec)) {
+      return false;
+    }
+
+    for (const key in rec) {
+      if (!rec.hasOwnProperty(key)) {
+        break;
+      }
+      const value = rec[key];
+      let valuePasses = false;
+      for (let i = 0; i < generatedGuards.length; i++) {
+        const guard = generatedGuards[i]!;
+        if (guard(value)) {
+          valuePasses = true;
+          break;
+        }
+      }
+      if (!valuePasses) {
+        return false;
+      }
+    }
+    return true;
   };
 
   const generatedGuards =

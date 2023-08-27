@@ -28,7 +28,13 @@ const InstanceOf = <
   constructors: C
 ): Guard<T> => {
   return (value: unknown): value is T => {
-    return constructors.some((constructor) => value instanceof constructor);
+    for (let i = 0; i < constructors.length; i++) {
+      const constructor = constructors[i]!;
+      if(value instanceof constructor){
+        return true
+      }      
+    }
+    return false
   };
 };
 

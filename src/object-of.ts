@@ -70,13 +70,25 @@ const ObjectOf = <
 >(
   guards: G | ((self: NonCallable<Guard<T>>) => G)
 ): Guard<T> => {
-  const isObjectOf = (obj: unknown): obj is T =>
-    isObject(obj) &&
-    Object.entries(generatedGuards).every(([key, guard]) =>
-      guard.optional
+  const isObjectOf = (obj: unknown): obj is T => {
+    if (!isObject(obj)) {
+      return false;
+    }
+    for (const key in generatedGuards) {
+      if (!generatedGuards.hasOwnProperty(key)) {
+        break;
+      }
+      const guard = generatedGuards[key]!;
+      const passes = guard.optional
         ? obj[key] === undefined || guard(obj[key])
-        : key in obj && guard(obj[key])
-    );
+        : key in obj && guard(obj[key]);
+
+      if (!passes) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   const generatedGuards =
     typeof guards === "function"

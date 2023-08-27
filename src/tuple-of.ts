@@ -77,14 +77,19 @@ const TupleOf = <
     | ((self: NonCallable<Guard<T>>) => OptionalRequiredGuards<G>)
 ): Guard<T> => {
   const isTupleOf = (tuple: unknown): tuple is T => {
-    return (
-      isArray(tuple) &&
-      tuple.length <= generatedGuards.length &&
-      generatedGuards.every(
-        (guard, i) =>
-          (guard.optional && tuple[i] === undefined) || guard(tuple[i])
-      )
-    );
+    if(!isArray(tuple) || tuple.length > generatedGuards.length){
+      return false;
+    }
+
+    for (let i = 0; i < generatedGuards.length; i++) {
+      const guard = generatedGuards[i]!;
+
+      const passes = (guard.optional && tuple[i] === undefined) || guard(tuple[i])
+      if(!passes){
+        return false
+      }
+    }
+    return true;
   };
 
   const generatedGuards =
