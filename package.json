@@ -1,6 +1,6 @@
 {
 	"name": "@gabrielurbina/type-guard",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "Type safety for your IO",
 	"type": "module",
 	"main": "dist/esm/index.js",
