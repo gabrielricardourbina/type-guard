@@ -1,54 +1,57 @@
 {
-	"name": "@gabrielurbina/type-guard",
-	"version": "0.2.6",
-	"description": "Type safety for your IO",
-	"type": "module",
-	"main": "dist/esm/index.js",
-	"types": "dist/esm/index.d.ts",
-	"publishConfig": {
-		"access": "public"
-	},
-	"scripts": {
-		"prebuild": "git clean -fdx dist/",
-		"build": "tsc --project tsconfig.build.json && tsc --project tsconfig.build.cjs.json",
-		"postbuild": "node postbuild.js",
-		"docgen": "typedoc",
-		"postdocgen": "mv -f docs/modules.md .",
-		"release": "cd dist && npm publish",
-		"lint": "eslint src/** test/**",
-		"test": "mocha --exit",
-		"prettify": "prettier --write ./src ./test",
-		"test:cover": "nyc mocha --exit"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/gabrielricardourbina/type-guard.git"
-	},
-	"keywords": [
-		"typescript",
-		"functional"
-	],
-	"author": "Gabriel Ricardo Urbina",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/gabrielricardourbina/type-guard/issues"
-	},
-	"homepage": "https://github.com/gabrielricardourbina/type-guard#readme",
-	"devDependencies": {
-		"@types/chai": "^4.3.4",
-		"@types/mocha": "^10.0.1",
-		"@types/node": "^18.15.9",
-		"@typescript-eslint/eslint-plugin": "^5.56.0",
-		"@typescript-eslint/parser": "^5.56.0",
-		"chai": "^4.3.7",
-		"eslint": "^8.36.0",
-		"eslint-plugin-prettier": "^4.2.1",
-		"mocha": "^10.2.0",
-		"nyc": "^15.1.0",
-		"prettier": "^2.8.7",
-		"ts-node": "^10.9.1",
-		"typedoc": "^0.23.28",
-		"typedoc-plugin-markdown": "^3.14.0",
-		"typescript": "^5.0.2"
-	}
+  "name": "@gabrielurbina/type-guard",
+  "version": "0.2.7",
+  "description": "Type safety for your IO",
+  "type": "module",
+  "main": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prebuild": "git clean -fdx dist/",
+    "build": "tsc --project tsconfig.build.json && tsc --project tsconfig.build.cjs.json",
+    "postbuild": "node postbuild.js",
+    "docgen": "typedoc",
+    "postdocgen": "mv -f docs/modules.md .",
+    "release": "cd dist && npm publish",
+    "lint": "eslint src/** test/**",
+    "test": "mocha --exit",
+    "prettify": "prettier --write ./src ./test",
+    "test:cover": "nyc mocha --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielricardourbina/type-guard.git"
+  },
+  "keywords": [
+    "typescript",
+    "functional"
+  ],
+  "author": "Gabriel Ricardo Urbina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabrielricardourbina/type-guard/issues"
+  },
+  "homepage": "https://github.com/gabrielricardourbina/type-guard#readme",
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.15.9",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "chai": "^4.3.7",
+    "eslint": "^8.36.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.8.7",
+    "ts-node": "^10.9.1",
+    "typedoc": "^0.23.28",
+    "typedoc-plugin-markdown": "^3.14.0",
+    "typescript": "^5.0.2"
+  },
+  "overrides": {
+    "js-yaml": ">=4.1.1"
+  }
 }
